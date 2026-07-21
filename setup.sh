@@ -293,16 +293,17 @@ for tool in python node git npm; do
             git)    ver=$(git --version 2>&1) ;;
             npm)    ver="v$(npm --version 2>&1)" ;;
         esac
-        echo -e "  %-18s│ %-22s│ ${GREEN}OK${RESET}" "$tool" "$ver"
+        printf "  %-18s│ %-22s│ ${GREEN}OK${RESET}\n" "$tool" "$ver"
     else
-        echo -e "  %-18s│ %-22s│ ${RED}ERRO${RESET}" "$tool" "N/A"
+        printf "  %-18s│ %-22s│ ${RED}ERRO${RESET}\n" "$tool" "N/A"
     fi
 done
 
 if [ "$LXML_OK" = true ]; then
-    echo -e "  %-18s│ %-22s│ ${GREEN}OK${RESET}" "lxml" "$(python -c 'import lxml; print(lxml.__version__)' 2>/dev/null)"
+    lxml_ver=$(python -c 'import lxml; print(lxml.__version__)' 2>/dev/null)
+    printf "  %-18s│ %-22s│ ${GREEN}OK${RESET}\n" "lxml" "${lxml_ver:-N/A}"
 else
-    echo -e "  %-18s│ %-22s│ ${YELLOW}html5lib${RESET}" "lxml" "substituto"
+    printf "  %-18s│ %-22s│ ${YELLOW}html5lib${RESET}\n" "lxml" "substituto"
 fi
 
 echo ""
