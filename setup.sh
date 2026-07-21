@@ -211,15 +211,30 @@ echo ""
 
 echo -e "${BOLD}${BLUE}[7/8] Configurando permissões e estrutura...${RESET}"
 
-termux-setup-storage 2>/dev/null
-sleep 1
+# Verificar se storage já está configurado
+if [ -d "$HOME/storage/shared" ]; then
+    echo -e "  ${GREEN}[OK]${RESET}   Storage já configurado (~/storage/shared existe)"
+else
+    # Executar termux-setup-storage sem interação
+    termux-setup-storage <<< "y" 2>/dev/null || termux-setup-storage 2>/dev/null || true
+    sleep 1
+fi
 
+# Criar estrutura POIVON (mesmo se storage já existia)
 mkdir -p "$HOME/storage/shared/POIVON/projects"
 mkdir -p "$HOME/storage/shared/POIVON/scripts"
 mkdir -p "$HOME/storage/shared/POIVON/data"
 mkdir -p "$HOME/storage/shared/POIVON/backups"
 mkdir -p "$HOME/storage/shared/POIVON/guides"
 mkdir -p "$HOME/storage/shared/POIVON/logs"
+
+# Criar diretórios de projeto na HOME também (fallback)
+mkdir -p "$HOME/POIVON/projects"
+mkdir -p "$HOME/POIVON/scripts"
+mkdir -p "$HOME/POIVON/data"
+mkdir -p "$HOME/POIVON/backups"
+mkdir -p "$HOME/POIVON/guides"
+mkdir -p "$HOME/POIVON/logs"
 
 echo -e "${GREEN}[OK] Estrutura: ~/storage/shared/POIVON/${RESET}"
 echo ""
