@@ -123,7 +123,7 @@ echo -e "${CYAN}  │ pip install flask requests beautifulsoup4 html5lib       �
 echo -e "${CYAN}  │ pip install pillow pygments colorama watchdog            │${RESET}"
 echo -e "${CYAN}  └──────────────────────────────────────────────────────────┘${RESET}"
 
-python -m pip install --upgrade pip 2>&1 | tail -1
+echo -e "${GREEN}[OK] pip (pkg python-pip) detectado. Sem upgrade (proibido no Termux).${RESET}"
 
 pip install --quiet \
     flask requests beautifulsoup4 html5lib pillow pygments \

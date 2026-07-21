@@ -150,9 +150,8 @@ echo ""
 echo -e "${BOLD}${BLUE}[5/8] pip install - lxml e pacotes Python...${RESET}"
 echo ""
 
-python -m pip install --upgrade pip 2>&1 | tail -1
-
 echo -e "  ${CYAN}┌──────────────────────────────────────────────────────┐${RESET}"
+echo -e "  ${CYAN}│ pip do Termux detectado (pkg python-pip)               │${RESET}"
 echo -e "  ${CYAN}│ Tentando instalar lxml...                            │${RESET}"
 echo -e "  ${CYAN}└──────────────────────────────────────────────────────┘${RESET}"
 echo ""
