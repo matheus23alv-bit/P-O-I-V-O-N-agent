@@ -1,0 +1,312 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# ─────────────────────────────────────────────────────
+# POIVON - Binário Principal
+# PVN S¥STEM | AGENTE POIVON | skill yb
+# Termux Edition
+# ─────────────────────────────────────────────────────
+
+PVN_PREFIX="$PREFIX"
+PVN_CONFIG="$PVN_PREFIX/etc/p-o-i-v-o-n/pvn.conf"
+PVN_AGENTS="$PVN_PREFIX/lib/p-o-i-v-o-n/agents"
+PVN_SCRIPTS="$PVN_PREFIX/lib/p-o-i-v-o-n/scripts"
+PVN_DOCS="$PVN_PREFIX/share/p-o-i-v-o-n/docs"
+PVN_TEMPLATES="$PVN_PREFIX/share/p-o-i-v-o-n/templates"
+WORK_DIR="$HOME/storage/shared/POIVON"
+
+# Carregar configuração
+if [ -f "$PVN_CONFIG" ]; then
+    source "$PVN_CONFIG"
+fi
+
+# Verificar diretório de trabalho
+if [ ! -d "$WORK_DIR" ]; then
+    mkdir -p "$WORK_DIR/projects" "$WORK_DIR/scripts" "$WORK_DIR/data" "$WORK_DIR/backups"
+fi
+
+# Splash Screen
+splash_screen() {
+    clear
+    echo ""
+    echo "  ╭┬╮╭┬╮  ¥¥¥  █▓░  //\\  @#$%  °°°"
+    echo "    ╰╯╰╯  ░▓█  ¥¥¥  %$#@  ┬┬┬  °°°"
+    echo "  ▲▼▲▼  ╭┬╮  ▓░█  //\\\\  °°°  ╰╯╰╯"
+    echo "  ░▓█░  ▼▲▼  ┬┬┬  ¥¥¥  //\\  ▓░█░"
+    echo ""
+    sleep 0.3
+    echo "  P-O-I-V-O-N  //\\\\  °°°°°°"
+    echo "  P-O-I-V-O-N  //\\\\  █████"
+    echo "  P-O-I-V-O-N  //\\\\  ▓▓▓▓▓"
+    echo ""
+    sleep 0.3
+    echo "╔══════════════════════════════════════════════════╗"
+    echo "║                                                  ║"
+    echo "║     ▄▀▄  P-O-I-V-O-N  ▄▀▄                      ║"
+    echo "║                                                  ║"
+    echo "║     iniciando PVN S¥STEM - °°°°°° starting....  ║"
+    echo "║                                                  ║"
+    echo "║     POIVON AGENTE MASTER CODE - TERMUX EDITION   ║"
+    echo "║                                                  ║"
+    echo "╚══════════════════════════════════════════════════╝"
+    echo ""
+    echo "┌──────────────────────────────────────────────────┐"
+    echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
+    echo "│   PVN S¥STEM | AGENTE POIVON | skill yb         │"
+    echo "└──────────────────────────────────────────────────┘"
+    echo ""
+}
+
+# Mostrar ajuda
+show_help() {
+    echo ""
+    echo "╔══════════════════════════════════════════════════╗"
+    echo "║  P-O-I-V-O-N - Agente para Termux               ║"
+    echo "╠══════════════════════════════════════════════════╣"
+    echo "║                                                  ║"
+    echo "║  Uso: pvn <comando> [argumentos]                 ║"
+    echo "║                                                  ║"
+    echo "║  Comandos:                                       ║"
+    echo "║  (sem args)  Iniciar o agente                     ║"
+    echo "║  criar       Criar projeto do zero                ║"
+    echo "║  editar      Editar arquivo existente             ║"
+    echo "║  corrigir    Corrigir bug                         ║"
+    echo "║  revisar     Revisar sem modificar                ║"
+    echo "║  refatorar   Refatorar escopo indicado            ║"
+    echo "║  install     Instalar dependência (pkg/pip/npm)   ║"
+    echo "║  setup       Configurar ambiente completo         ║"
+    echo "║  server      Iniciar servidor local               ║"
+    echo "║  firebase    Operar no Firebase                   ║"
+    echo "║  guias       Listar guias disponíveis             ║"
+    echo "║  guia        Executar guia passo a passo          ║"
+    echo "║  status      Verificar status do ambiente         ║"
+    echo "║  backup      Criar backup do projeto              ║"
+    echo "║  version     Versão do agente                     ║"
+    echo "║  help        Esta ajuda                           ║"
+    echo "║                                                  ║"
+    echo "╠══════════════════════════════════════════════════╣"
+    echo "║  PVN S¥STEM | AGENTE POIVON | skill yb           ║"
+    echo "╚══════════════════════════════════════════════════╝"
+    echo ""
+}
+
+# Status do ambiente
+check_status() {
+    echo ""
+    echo "┌──────────────────────────────────────────────────┐"
+    echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
+    echo "└──────────────────────────────────────────────────┘"
+    echo ""
+    echo "[STATUS] Verificando ambiente Termux..."
+    echo ""
+    
+    # Verificar Python
+    if command -v python &>/dev/null; then
+        echo "[OK] Python: $(python --version 2>&1)"
+    else
+        echo "[ERRO] Python não instalado. Execute: pkg install python"
+    fi
+    
+    # Verificar Node.js
+    if command -v node &>/dev/null; then
+        echo "[OK] Node.js: $(node --version)"
+    else
+        echo "[ERRO] Node.js não instalado. Execute: pkg install nodejs"
+    fi
+    
+    # Verificar Git
+    if command -v git &>/dev/null; then
+        echo "[OK] Git: $(git --version)"
+    else
+        echo "[ERRO] Git não instalado. Execute: pkg install git"
+    fi
+    
+    # Verificar Nano
+    if command -v nano &>/dev/null; then
+        echo "[OK] Nano: disponível"
+    else
+        echo "[ERRO] Nano não instalado. Execute: pkg install nano"
+    fi
+    
+    # Verificar diretório de trabalho
+    if [ -d "$WORK_DIR" ]; then
+        echo "[OK] Diretório de trabalho: $WORK_DIR"
+        echo "     Projetos: $(find "$WORK_DIR/projects" -maxdepth 1 -type d 2>/dev/null | wc -l) diretórios"
+    else
+        echo "[ERRO] Diretório de trabalho não existe. Execute: pvn setup"
+    fi
+    
+    # Verificar Firebase
+    echo "[INFO] Firebase: ${FIREBASE_ACTIVE:-false}"
+    
+    echo ""
+    echo "─────────────────────────────────────────"
+    echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+    echo "─────────────────────────────────────────"
+    echo ""
+}
+
+# Setup do ambiente completo
+do_setup() {
+    echo ""
+    echo "┌──────────────────────────────────────────────────┐"
+    echo "│   •[ P-O-I-V-O-N ]  //\\\\  instalando.....•    │"
+    echo "└──────────────────────────────────────────────────┘"
+    echo ""
+    echo "[SETUP] Configurando ambiente POIVON Termux..."
+    echo ""
+    
+    echo "[1/5] Atualizando repositórios..."
+    pkg update -y 2>/dev/null
+    pkg upgrade -y 2>/dev/null
+    
+    echo "[2/5] Instalando dependências essenciais..."
+    pkg install -y python nodejs git curl wget nano clang 2>/dev/null
+    
+    echo "[3/5] Instalando pacotes Python..."
+    pip install --upgrade pip 2>/dev/null
+    pip install flask requests beautifulsoup4 lxml pillow pygments 2>/dev/null
+    
+    echo "[4/5] Concedendo permissões..."
+    termux-setup-storage 2>/dev/null
+    
+    echo "[5/5] Criando estrutura de diretórios..."
+    mkdir -p "$WORK_DIR/projects"
+    mkdir -p "$WORK_DIR/scripts"
+    mkdir -p "$WORK_DIR/data"
+    mkdir -p "$WORK_DIR/backups"
+    
+    echo ""
+    echo "╔══════════════════════════════════════════════════╗"
+    echo "║   ✓✓✓  [ P-O-I-V-O-N ]  concluído.....•  ✓✓✓   ║"
+    echo "╚══════════════════════════════════════════════════╝"
+    echo ""
+    echo "─────────────────────────────────────────"
+    echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+    echo "─────────────────────────────────────────"
+    echo ""
+}
+
+# Iniciar servidor local
+do_server() {
+    local port="${1:-8080}"
+    echo ""
+    echo "┌──────────────────────────────────────────────────┐"
+    echo "│   •[ P-O-I-V-O-N ]  //\\\\  programando.....•   │"
+    echo "└──────────────────────────────────────────────────┘"
+    echo ""
+    echo "[SERVER] Iniciando servidor local na porta $port..."
+    echo "[SERVER] Diretório: $WORK_DIR/projects"
+    echo "[SERVER] URL: http://localhost:$port"
+    echo ""
+    python -m http.server "$port" --directory "$WORK_DIR/projects"
+}
+
+# Instalar dependência
+do_install() {
+    local package="$1"
+    if [ -z "$package" ]; then
+        echo "[ERRO] Especifique o pacote: pvn install <pacote>"
+        return 1
+    fi
+    
+    echo ""
+    echo "┌──────────────────────────────────────────────────┐"
+    echo "│   •[ P-O-I-V-O-N ]  //\\\\  instalando.....•    │"
+    echo "└──────────────────────────────────────────────────┘"
+    echo ""
+    
+    # Detectar tipo de pacote e instalar
+    if [[ "$package" == *".deb" ]]; then
+        pkg install -y "$package"
+    elif [[ "$package" == *"pip:"* ]]; then
+        pip install "${package#pip:}"
+    elif [[ "$package" == *"npm:"* ]]; then
+        npm install -g "${package#npm:}"
+    else
+        pkg install -y "$package"
+    fi
+    
+    echo "[OK] $package instalado com sucesso."
+}
+
+# Criar backup
+do_backup() {
+    local project="${1:-all}"
+    local backup_dir="$WORK_DIR/backups"
+    local timestamp=$(date +%Y%m%d_%H%M%S)
+    
+    echo ""
+    echo "┌──────────────────────────────────────────────────┐"
+    echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
+    echo "└──────────────────────────────────────────────────┘"
+    echo ""
+    echo "[BACKUP] Criando backup..."
+    
+    mkdir -p "$backup_dir"
+    
+    if [ "$project" = "all" ]; then
+        cp -r "$WORK_DIR/projects" "$backup_dir/projects_$timestamp"
+        echo "[OK] Backup completo: $backup_dir/projects_$timestamp"
+    else
+        cp -r "$WORK_DIR/projects/$project" "$backup_dir/${project}_$timestamp"
+        echo "[OK] Backup de $project: $backup_dir/${project}_$timestamp"
+    fi
+    
+    echo ""
+    echo "─────────────────────────────────────────"
+    echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+    echo "─────────────────────────────────────────"
+    echo ""
+}
+
+# ─────────────────────────────────────────────────────
+# MAIN
+# ─────────────────────────────────────────────────────
+
+case "${1:-}" in
+    ""|"")
+        splash_screen
+        ;;
+    "help"|"-h"|"--help")
+        show_help
+        ;;
+    "status")
+        check_status
+        ;;
+    "setup")
+        do_setup
+        ;;
+    "server")
+        do_server "${2:-8080}"
+        ;;
+    "install")
+        do_install "$2"
+        ;;
+    "backup")
+        do_backup "$2"
+        ;;
+    "version"|"-v"|"--version")
+        echo "p-o-i-v-o-n versão ${AGENT_VERSION:-1.0.0}"
+        echo "PVN S¥STEM | AGENTE POIVON | skill yb | Termux Edition"
+        ;;
+    "criar"|"editar"|"corrigir"|"revisar"|"refatorar"|"firebase"|"guias"|"guia")
+        echo ""
+        echo "┌──────────────────────────────────────────────────┐"
+        echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
+        echo "└──────────────────────────────────────────────────┘"
+        echo ""
+        echo "[POIVON] Comando $1 recebido."
+        echo "[POIVON] Agente processando: pvn $1 $2"
+        echo "[POIVON] Aguarde a resposta do agente..."
+        echo ""
+        echo "─────────────────────────────────────────"
+        echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+        echo "─────────────────────────────────────────"
+        ;;
+    *)
+        echo "[ERRO] Comando desconhecido: $1"
+        echo "[INFO] Digite 'pvn help' para ver os comandos disponíveis."
+        exit 1
+        ;;
+esac
+
+exit 0

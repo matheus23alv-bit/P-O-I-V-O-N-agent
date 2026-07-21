@@ -1,0 +1,34 @@
+# POIVON - .gitignore
+# PVN S¥STEM | AGENTE POIVON | skill yb
+
+# Build artifacts
+*.deb
+*.zip
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Backups
+*~
+*.bak
+backups/
+
+# Node modules (if any project uses it)
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/

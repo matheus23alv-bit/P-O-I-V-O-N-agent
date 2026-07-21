@@ -1,0 +1,120 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# ─────────────────────────────────────────────────────
+# POIVON - POSTINST
+# Executado APÓS a instalação do pacote
+# PVN S¥STEM | AGENTE POIVON | skill yb
+# ─────────────────────────────────────────────────────
+
+# Garantir permissões de execução
+chmod +x "$PREFIX/bin/pvn" 2>/dev/null
+chmod +x "$PREFIX/lib/p-o-i-v-o-n/scripts/"* 2>/dev/null
+
+# Gerar configuração inicial se não existir
+if [ ! -f "$PREFIX/etc/p-o-i-v-o-n/pvn.conf" ]; then
+    cat > "$PREFIX/etc/p-o-i-v-o-n/pvn.conf" << 'CONF'
+# ─────────────────────────────────────────────────────
+# POIVON - Configuração Principal
+# PVN S¥STEM | AGENTE POIVON | skill yb
+# ─────────────────────────────────────────────────────
+
+# Versão do agente
+AGENT_VERSION="1.0.0"
+
+# Splash screen ativa (true/false)
+SPLASH_SCREEN=true
+
+# Indicador de estado ativo (true/false)
+STATE_INDICATOR=true
+
+# Firebase ativo por padrão (true/false)
+FIREBASE_ACTIVE=false
+
+# Projeto Firebase
+FIREBASE_PROJECT="agente-poivon"
+
+# Caminho base do usuário
+WORK_DIR="$HOME/storage/shared/POIVON"
+
+# Editor padrão
+EDITOR="nano"
+
+# Porta do servidor local
+SERVER_PORT=8080
+
+# Idioma
+LANGUAGE="pt-BR"
+
+# Log de ações
+LOG_ACTIONS=true
+CONF
+    echo "[OK] Configuração inicial criada: $PREFIX/etc/p-o-i-v-o-n/pvn.conf"
+fi
+
+# Gerar guia de comandos
+cat > "$PREFIX/share/p-o-i-v-o-n/docs/comandos.md" << 'GUIDE'
+# POIVON - Guia de Comandos
+
+## Comandos Principais
+```
+pvn                    → Iniciar o agente (com Splash Screen)
+pvn criar <ideia>      → Criar projeto do zero
+pvn editar <arquivo>   → Editar arquivo existente
+pvn corrigir <bug>     → Corrigir bug
+pvn revisar <escopo>   → Revisar sem modificar
+pvn refatorar <escopo> → Refatorar escopo indicado
+pvn install <pacote>   → Instalar dependência
+pvn setup              → Configurar ambiente completo
+pvn server             → Iniciar servidor local
+pvn firebase <ação>    → Operar no Firebase
+pvn guias              → Listar guias disponíveis
+pvn guia <nome>        → Executar guia passo a passo
+pvn status             → Verificar status do ambiente
+pvn backup             → Criar backup do projeto
+pvn help               → Ajuda geral
+```
+
+## Splash Screen
+Ao executar `pvn`, o agente exibe:
+- Caracteres ASCII caindo e se organizando formando POIVON
+- frase: "iniciando PVN S¥STEM - °°°°°° starting...."
+- assinatura: "POIVON AGENTE MASTER CODE - TERMUX EDITION"
+
+## Indicador de Estado
+Sempre visível no topo durante processamento:
+- •[ P-O-I-V-O-N ]  //\\\\  pensando.....•
+- •[ P-O-I-V-O-N ]  //\\\\  codificando.....•
+- •[ P-O-I-V-O-N ]  //\\\\  instalando.....•
+- •[ P-O-I-V-O-N ]  //\\\\  concluído.....•
+
+## Formato de Entrega
+Toda entrega é assinada:
+  PVN S¥STEM - AGENTE - POIVON
+GUIDE
+
+echo "[OK] Guia de comandos instalado: $PREFIX/share/p-o-i-v-o-n/docs/comandos.md"
+
+# Instalar pip packages essenciais
+if command -v pip &>/dev/null; then
+    pip install --quiet flask requests beautifulsoup4 lxml 2>/dev/null
+    echo "[OK] Pacotes Python instalados: flask, requests, beautifulsoup4, lxml"
+fi
+
+# Exibir mensagem de conclusão
+echo ""
+echo "╔══════════════════════════════════════════════════╗"
+echo "║                                                  ║"
+echo "║   ✓✓✓  P-O-I-V-O-N instalado com sucesso!  ✓✓✓   ║"
+echo "║                                                  ║"
+echo "║   PVN S¥STEM - AGENTE - POIVON                   ║"
+echo "║                                                  ║"
+echo "║   Digite: pvn   para iniciar                     ║"
+echo "║   Digite: pvn help para ajuda                    ║"
+echo "║                                                  ║"
+╚══════════════════════════════════════════════════╝"
+echo ""
+echo "─────────────────────────────────────────"
+echo "  PVN S¥STEM | AGENTE POIVON | skill yb | Termux Edition"
+echo "─────────────────────────────────────────"
+echo ""
+
+exit 0

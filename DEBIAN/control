@@ -1,0 +1,19 @@
+Package: p-o-i-v-o-n
+Version: 1.0.0
+Architecture: all
+Maintainer: MATHEUS <mentalista-framework@pvn.system>
+Installed-Size: 512
+Depends: python, nodejs, git, nano, curl, wget, termux-api
+Section: utils
+Priority: optional
+Description: Agente POIVON - Executor Determinístico de Engenharia para Termux
+ Agente POIVON é um executor determinístico de engenharia estruturado
+ exclusivamente para o ambiente Termux (Android). Gerencia tarefas gerais,
+ executa guias passo a passo e entrega alterações diretas em código.
+ .
+ Skill vinculada: yb
+ Splash Screen: Caracteres ASCII caem e formam POIVON
+ Estado visual: sempre visível no topo com efeito Termux
+ Formato de entrega: PVN S¥STEM - AGENTE - POIVON
+ .
+ Homepage: https://pvn.system

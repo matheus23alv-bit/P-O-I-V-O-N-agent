@@ -1,0 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# ─────────────────────────────────────────────────────
+# POIVON - PRERM
+# Executado ANTES da remoção do pacote
+# PVN S¥STEM | AGENTE POIVON | skill yb
+# ─────────────────────────────────────────────────────
+
+echo "[AVISO] Removendo POIVON..."
+echo "[AVISO] Dados do usuário em ~/storage/shared/POIVON/ serão preservados."
+echo "[AVISO] Para remover tudo: rm -rf ~/storage/shared/POIVON/"
+
+exit 0

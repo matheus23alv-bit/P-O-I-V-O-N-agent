@@ -1,0 +1,15 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# ─────────────────────────────────────────────────────
+# POIVON - POSTRM
+# Executado APÓS a remoção do pacote
+# PVN S¥STEM | AGENTE POIVON | skill yb
+# ─────────────────────────────────────────────────────
+
+echo ""
+echo "─────────────────────────────────────────"
+echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+echo "  Pacote removido. Dados do usuário preservados."
+echo "─────────────────────────────────────────"
+echo ""
+
+exit 0

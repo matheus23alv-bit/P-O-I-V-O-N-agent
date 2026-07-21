@@ -1,0 +1,41 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# ─────────────────────────────────────────────────────
+# POIVON - PREINST
+# Executado ANTES da instalação do pacote
+# PVN S¥STEM | AGENTE POIVON | skill yb
+# ─────────────────────────────────────────────────────
+
+echo ""
+echo "╔══════════════════════════════════════════════════╗"
+echo "║                                                  ║"
+echo "║   ▄▀▄  P-O-I-V-O-N  ▄▀▄                        ║"
+echo "║                                                  ║"
+echo "║   Pre-instalação: verificando ambiente...        ║"
+echo "║                                                  ║"
+╚══════════════════════════════════════════════════╝"
+
+# Verificar Termux
+if [ ! -d "$PREFIX" ]; then
+    echo "[ERRO] POIVON requer o ambiente Termux para ser instalado."
+    echo "[ERRO] Execute: pkg update && pkg upgrade -y"
+    echo "[ERRO] E instale dentro do Termux: pkg install p-o-i-v-o-n"
+    exit 1
+fi
+
+# Verificar se já existe versão anterior
+if [ -f "$PREFIX/bin/pvn" ]; then
+    echo "[AVISO] Versão anterior de POIVON detectada. Atualizando..."
+fi
+
+# Criar diretórios de dados do usuário (antes de instalar)
+mkdir -p "$HOME/storage/shared/POIVON"
+mkdir -p "$HOME/storage/shared/POIVON/projects"
+mkdir -p "$HOME/storage/shared/POIVON/scripts"
+mkdir -p "$HOME/storage/shared/POIVON/data"
+mkdir -p "$HOME/storage/shared/POIVON/backups"
+
+echo "[OK] Diretórios de trabalho criados: ~/storage/shared/POIVON/"
+echo "[OK] Pronto para instalação."
+echo ""
+
+exit 0
