@@ -119,15 +119,15 @@ echo ""
 
 echo -e "${BOLD}${BLUE}[5/10] Instalando pacotes Python com pip install...${RESET}"
 echo -e "${CYAN}  ┌──────────────────────────────────────────────────────────┐${RESET}"
-echo -e "${CYAN}  │ pip install flask requests beautifulsoup4 lxml           │${RESET}"
+echo -e "${CYAN}  │ pip install flask requests beautifulsoup4 html5lib       │${RESET}"
 echo -e "${CYAN}  │ pip install pillow pygments colorama watchdog            │${RESET}"
 echo -e "${CYAN}  └──────────────────────────────────────────────────────────┘${RESET}"
 
 python -m pip install --upgrade pip 2>&1 | tail -1
 
 pip install --quiet \
-    flask requests beautifulsoup4 lxml pillow pygments \
-    colorama watchdog numpy pandas 2>&1 | tail -3
+    flask requests beautifulsoup4 html5lib pillow pygments \
+    colorama watchdog 2>&1 | tail -3
 
 echo -e "${GREEN}[OK] Pacotes Python instalados.${RESET}"
 echo ""
