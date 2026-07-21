@@ -7,7 +7,8 @@
 set -e
 
 BUILD_DIR="$(pwd)"
-DEB_NAME="p-o-i-v-o-n_1.0.0_all.deb"
+DEB_VERSION=$(grep "^Version:" DEBIAN/control | awk '{print $2}')
+DEB_NAME="p-o-i-v-o-n_${DEB_VERSION}_all.deb"
 OUTPUT_DIR="$HOME"
 
 echo ""
@@ -18,6 +19,7 @@ echo "║                                                  ║"
 echo "║   Build .deb para Termux                         ║"
 echo "║                                                  ║"
 echo "╚══════════════════════════════════════════════════╝"
+echo ""
 echo ""
 
 # Verificar dependências de build
@@ -54,14 +56,15 @@ echo "║                                                  ║"
 echo "║   Arquivo: $OUTPUT_DIR/$DEB_NAME                 ║"
 echo "║   Tamanho: $(du -h "$OUTPUT_DIR/$DEB_NAME" | cut -f1)        ║"
 echo "║                                                  ║"
-╚══════════════════════════════════════════════════╝"
+echo "╚══════════════════════════════════════════════════╝"
+echo ""
 
 echo ""
 echo "┌──────────────────────────────────────────────────┐"
 echo "│   Instalação no Termux:                           │"
 echo "│                                                   │"
-echo "│   cp p-o-i-v-o-n_1.0.0_all.deb $PREFIX/tmp/      │"
-echo "│   pkg install ./p-o-i-v-o-n_1.0.0_all.deb        │"
+echo "│   cp p-o-i-v-o-n_${DEB_VERSION}_all.deb $PREFIX/tmp/    │"
+echo "│   pkg install ./p-o-i-v-o-n_${DEB_VERSION}_all.deb  │"
 echo "│                                                   │"
 echo "│   Ou instalar direto:                             │"
 echo "│   pkg install p-o-i-v-o-n                         │"

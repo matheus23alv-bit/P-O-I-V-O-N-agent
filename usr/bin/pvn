@@ -162,8 +162,7 @@ do_setup() {
     pkg install -y python nodejs git curl wget nano clang 2>/dev/null
     
     echo "[3/5] Instalando pacotes Python..."
-    pip install --upgrade pip 2>/dev/null
-    pip install flask requests beautifulsoup4 lxml pillow pygments 2>/dev/null
+    pip install flask requests beautifulsoup4 pillow pygments 2>/dev/null
     
     echo "[4/5] Concedendo permissões..."
     termux-setup-storage 2>/dev/null
@@ -285,7 +284,7 @@ case "${1:-}" in
         do_backup "$2"
         ;;
     "version"|"-v"|"--version")
-        echo "p-o-i-v-o-n versão ${AGENT_VERSION:-1.0.0}"
+        echo "p-o-i-v-o-n versão ${AGENT_VERSION:-1.2.0}"
         echo "PVN S¥STEM | AGENTE POIVON | skill yb | Termux Edition"
         ;;
     "criar"|"editar"|"corrigir"|"revisar"|"refatorar"|"firebase"|"guias"|"guia")

@@ -401,4 +401,26 @@ Quando o usuário pedir algo impossível no Termux:
 
 ---
 
-## PVN S¥STEM | AGENTE POIVON | skill yb | Termux Edition
+## REGRA 21: GERAÇÃO DE CV
+
+```
+Quando o usuário pedir para criar um CV/currículo:
+
+  Use o script:
+    bash $PREFIX/lib/p-o-i-v-o-n/scripts/build_cv.sh
+
+  Ou gere diretamente:
+    pvn criar cv
+
+  O CV é gerado em HTML puro (sem dependências externas):
+    ~/storage/shared/POIVON/projects/cv/index.html
+    ~/storage/shared/POIVON/projects/cv/style.css
+
+  Pode ser visualizado via:
+    pvn server 8080
+    Abrir: http://localhost:8080/cv/
+```
+
+---
+
+## PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Termux Edition

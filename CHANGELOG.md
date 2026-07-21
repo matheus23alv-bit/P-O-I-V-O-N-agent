@@ -7,6 +7,25 @@
 
 ---
 
+## [1.2.0] - 2026-07-21
+
+### Added
+- Gerador de CV básico `build_cv.sh` — gera HTML/CSS puro com design profissional escuro
+- Regra 21 no system_prompt: geração de CV via `pvn criar cv`
+- Assinatura atualizada: "skill yb POIVON" (padrão global)
+
+### Fixed
+- `build.sh` linha 57: erro de sintaxe `╚...╝` sem `echo` — corrigido
+- `postinst` linha 113: erro de sintaxe `╚...╝` sem `echo` — corrigido
+- `postinst` versão hardcoded `1.0.0` → usa valor dinâmico
+- `pvn.conf` versão hardcoded `1.0.0` → atualizado para `1.2.0`
+- `pvn` setup: removido `pip install --upgrade pip` (proibido no Termux)
+- `pvn` setup: removido `lxml` dos pacotes (não compila no Termux)
+- `build.sh`: versão agora lida de `DEBIAN/control` (dinâmica)
+- Assinatura footer: "skill yb" → "skill yb POIVON"
+
+---
+
 ## [1.1.0] - 2026-07-21
 
 ### Added
