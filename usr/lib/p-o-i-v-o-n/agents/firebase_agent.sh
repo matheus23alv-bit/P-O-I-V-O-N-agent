@@ -2,6 +2,7 @@
 # ─────────────────────────────────────────────────────
 # POIVON - Agente Firebase
 # PVN S¥STEM | AGENTE POIVON | skill yb
+# [BETA] branch1 | v1.2.0-beta
 # Ativo apenas quando solicitado via @pvn firebase
 # ─────────────────────────────────────────────────────
 

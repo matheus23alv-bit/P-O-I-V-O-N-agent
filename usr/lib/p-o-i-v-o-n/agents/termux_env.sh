@@ -2,6 +2,7 @@
 # ─────────────────────────────────────────────────────
 # POIVON - Agente de Ambiente Termux
 # PVN S¥STEM | AGENTE POIVON | skill yb
+# [BETA] branch1 | v1.2.0-beta
 # Gerencia instalação, permissões e configurações do ambiente
 # ─────────────────────────────────────────────────────
 
@@ -36,7 +37,9 @@ termux_agent() {
             echo "  ├── projects/"
             echo "  ├── scripts/"
             echo "  ├── data/"
-            echo "  └── backups/"
+            echo "  ├── backups/"
+            echo "  ├── logs/"
+            echo "  └── guides/"
             ;;
         *)
             echo "[TERMUX] Ações: check, clean, update, dirs"

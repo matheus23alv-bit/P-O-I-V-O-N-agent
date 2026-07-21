@@ -2,6 +2,7 @@
 # ─────────────────────────────────────────────────────
 # POIVON - Script de Build de Projeto
 # PVN S¥STEM | AGENTE POIVON | skill yb
+# [BETA] branch1 | v1.2.0-beta
 # ─────────────────────────────────────────────────────
 
 WORK_DIR="$HOME/storage/shared/POIVON/projects"

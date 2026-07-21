@@ -3,6 +3,7 @@
 # ║                                                                  ║
 # ║   POIVON - Verificador de Dependências lxml                     ║
 # ║   PVN S¥STEM | AGENTE POIVON | skill yb                         ║
+# ║   Beta Edition — branch1 | v1.2.0-beta                          ║
 # ║   Verifica se lxml pode ser compilado no Termux                  ║
 # ║                                                                  ║
 # ║   Uso: bash check_deps.sh                                        ║
@@ -21,12 +22,14 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 WHITE='\033[1;37m'
+BOLD='\033[1m'
 RESET='\033[0m'
 
 echo ""
 echo -e "${CYAN}  ┌──────────────────────────────────────────────────┐${RESET}"
 echo -e "${CYAN}  │  POIVON - Verificador de Dependências lxml       │${RESET}"
 echo -e "${CYAN}  │  PVN S¥STEM | AGENTE POIVON | skill yb          │${RESET}"
+echo -e "${CYAN}  │  [BETA] v1.2.0-beta | branch1                   │${RESET}"
 echo -e "${CYAN}  └──────────────────────────────────────────────────┘${RESET}"
 echo ""
 
@@ -77,14 +80,14 @@ check "pkg-config" \
     "command -v pkg-config" \
     "pkg install pkg-config"
 
-# 4. libxml2 (biblioteca principal)
+# 4. libxml2 (biblioteca principal) — verificar header files, não dpkg
 check "libxml2-dev" \
-    "dpkg -l libxml2-dev 2>/dev/null | grep -q ii || [ -f \"\$PREFIX/include/libxml2/libxml/xmlversion.h\" ]" \
+    "[ -f \"\$PREFIX/include/libxml2/libxml/xmlversion.h\" ]" \
     "pkg install libxml2"
 
-# 5. libxslt (transformações XSL)
+# 5. libxslt (transformações XSL) — verificar header files, não dpkg
 check "libxslt-dev" \
-    "dpkg -l libxslt-dev 2>/dev/null | grep -q ii || [ -f \"\$PREFIX/include/libxslt/xslt.h\" ]" \
+    "[ -f \"\$PREFIX/include/libxslt/xslt.h\" ]" \
     "pkg install libxslt"
 
 # 6. Python headers
@@ -111,24 +114,24 @@ if python -c "import lxml" 2>/dev/null; then
     echo -e "  ${GREEN}[OK]${RESET}   lxml já instalado (v$LXML_VER)"
     ((PASS++))
 else
-    echo -e "  ${YELLOW}[TESTE]${RESET} Tentando compilar lxml via pip..."
+    echo -e "  ${YELLOW}[TESTE]${RESET} Tentando instalar lxml via pip..."
     echo ""
     echo -e "  ${CYAN}  ┌──────────────────────────────────────────┐${RESET}"
-    echo -e "  ${CYAN}  │ pip install lxml --no-binary :all:       │${RESET}"
+    echo -e "  ${CYAN}  │ pip install lxml                          │${RESET}"
     echo -e "  ${CYAN}  └──────────────────────────────────────────┘${RESET}"
     echo ""
 
-    # Tentar instalar lxml com flags do Termux
+    # Tentar instalar lxml sem --no-binary (compatível com Termux)
     export CFLAGS="-I$PREFIX/include/libxml2 -I$PREFIX/include/libxslt"
     export LDFLAGS="-L$PREFIX/lib -lxml2 -lxslt -lz -lm"
 
-    if pip install lxml --no-binary lxml 2>&1 | tail -5; then
+    if pip install lxml 2>&1 | tail -5; then
         echo ""
-        echo -e "  ${GREEN}[OK]${RESET}   lxml compilado com sucesso!"
+        echo -e "  ${GREEN}[OK]${RESET}   lxml instalado com sucesso!"
         ((PASS++))
     else
         echo ""
-        echo -e "  ${RED}[ERRO]${RESET} lxml NÃO pôde ser compilado."
+        echo -e "  ${RED}[ERRO]${RESET} lxml NÃO pôde ser instalado."
         ((FAIL++))
     fi
 fi
@@ -180,5 +183,5 @@ else
 fi
 
 echo ""
-echo -e "  PVN S¥STEM | AGENTE POIVON | skill yb"
+echo -e "  PVN S¥STEM | AGENTE POIVON | skill yb | [BETA] branch1 | v1.2.0-beta"
 echo ""
