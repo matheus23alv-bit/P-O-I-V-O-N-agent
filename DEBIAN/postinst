@@ -2,7 +2,8 @@
 # ─────────────────────────────────────────────────────
 # POIVON - POSTINST
 # Executado APÓS a instalação do pacote
-# PVN S¥STEM | AGENTE POIVON | skill yb
+# PVN S¥STEM | AGENTE POIVON | skill yb POIVON
+# Beta Edition — branch1
 # ─────────────────────────────────────────────────────
 
 # Garantir permissões de execução
@@ -14,11 +15,12 @@ if [ ! -f "$PREFIX/etc/p-o-i-v-o-n/pvn.conf" ]; then
     cat > "$PREFIX/etc/p-o-i-v-o-n/pvn.conf" << 'CONF'
 # ─────────────────────────────────────────────────────
 # POIVON - Configuração Principal
-# PVN S¥STEM | AGENTE POIVON | skill yb
+# PVN S¥STEM | AGENTE POIVON | skill yb POIVON
+# Beta Edition — branch1
 # ─────────────────────────────────────────────────────
 
 # Versão do agente
-AGENT_VERSION="1.2.0"
+AGENT_VERSION="1.2.0-beta"
 
 # Splash screen ativa (true/false)
 SPLASH_SCREEN=true
@@ -52,7 +54,7 @@ fi
 
 # Gerar guia de comandos
 cat > "$PREFIX/share/p-o-i-v-o-n/docs/comandos.md" << 'GUIDE'
-# POIVON - Guia de Comandos
+# POIVON - Guia de Comandos (Beta)
 
 ## Comandos Principais
 ```
@@ -93,10 +95,10 @@ GUIDE
 
 echo "[OK] Guia de comandos instalado: $PREFIX/share/p-o-i-v-o-n/docs/comandos.md"
 
-# Instalar pip packages essenciais
+# Instalar pip packages essenciais (sem lxml — precisa de libxml2-dev)
 if command -v pip &>/dev/null; then
-    pip install --quiet flask requests beautifulsoup4 lxml 2>/dev/null
-    echo "[OK] Pacotes Python instalados: flask, requests, beautifulsoup4, lxml"
+    pip install --quiet flask requests beautifulsoup4 html5lib pillow pygments colorama watchdog 2>/dev/null
+    echo "[OK] Pacotes Python instalados: flask, requests, beautifulsoup4, html5lib, pillow, pygments, colorama, watchdog"
 fi
 
 # Exibir mensagem de conclusão
@@ -106,14 +108,15 @@ echo "║                                                  ║"
 echo "║   ✓✓✓  P-O-I-V-O-N instalado com sucesso!  ✓✓✓   ║"
 echo "║                                                  ║"
 echo "║   PVN S¥STEM - AGENTE - POIVON                   ║"
+echo "║   [BETA] branch1                                 ║"
 echo "║                                                  ║"
 echo "║   Digite: pvn   para iniciar                     ║"
 echo "║   Digite: pvn help para ajuda                    ║"
 echo "║                                                  ║"
-╚══════════════════════════════════════════════════╝"
+echo "╚══════════════════════════════════════════════════╝"
 echo ""
 echo "─────────────────────────────────────────"
-echo "  PVN S¥STEM | AGENTE POIVON | skill yb | Termux Edition"
+echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta | Termux Edition"
 echo "─────────────────────────────────────────"
 echo ""
 

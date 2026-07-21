@@ -2,7 +2,8 @@
 # ─────────────────────────────────────────────────────
 # POIVON - PREINST
 # Executado ANTES da instalação do pacote
-# PVN S¥STEM | AGENTE POIVON | skill yb
+# PVN S¥STEM | AGENTE POIVON | skill yb POIVON
+# Beta Edition — branch1
 # ─────────────────────────────────────────────────────
 
 echo ""
@@ -11,8 +12,9 @@ echo "║                                                  ║"
 echo "║   ▄▀▄  P-O-I-V-O-N  ▄▀▄                        ║"
 echo "║                                                  ║"
 echo "║   Pre-instalação: verificando ambiente...        ║"
+echo "║   [BETA] branch1                                 ║"
 echo "║                                                  ║"
-╚══════════════════════════════════════════════════╝"
+echo "╚══════════════════════════════════════════════════╝"
 
 # Verificar Termux
 if [ ! -d "$PREFIX" ]; then
@@ -33,6 +35,8 @@ mkdir -p "$HOME/storage/shared/POIVON/projects"
 mkdir -p "$HOME/storage/shared/POIVON/scripts"
 mkdir -p "$HOME/storage/shared/POIVON/data"
 mkdir -p "$HOME/storage/shared/POIVON/backups"
+mkdir -p "$HOME/storage/shared/POIVON/logs"
+mkdir -p "$HOME/storage/shared/POIVON/guides"
 
 echo "[OK] Diretórios de trabalho criados: ~/storage/shared/POIVON/"
 echo "[OK] Pronto para instalação."
