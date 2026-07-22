@@ -8,6 +8,42 @@
 
 ---
 
+## [1.3.1] - 2026-07-22 — **Release Stable (main)**
+
+### Added
+- **Job `test-suite` no CI** — executa `test_all.sh` completo em cada push na branch1/branch2; CI falha se houver FAIL (Issue #5)
+- **Retry 3x** no Teste 6 (GitHub API) — robustez contra rate-limit transitório
+- **`RELATORIO_TESTES_v2_SANDBOX.md`** — evidência da suíte 100% (Issue #3)
+
+### Fixed
+- **`test_all.sh` — `log()`** engolia a mensagem quando chamada como `log -e "..."`; resultados individuais saíam em branco
+- **`test_all.sh` — imports Python** — testava `import beautifulsoup4`/`import pillow`; corrigido para os módulos reais `bs4`/`PIL`
+- **`test_all.sh` — Teste 5 Firebase** — apontava para Realtime DB inexistente (`firebaseio.com`); corrigido para o endpoint Firestore do projeto (auth real: escopo v2.0, Issue #7)
+- **`test_all.sh` — rodapé** com versão hardcoded → dinâmica via `$AGENT_VERSION`
+
+### Quality
+- **Suíte em sandbox Ubuntu 24.04: 52/52 PASS (100%)** — Issues #3 e #5 fechadas
+
+---
+
+
+## [1.3.0-beta] - 2026-07-22
+
+### Added
+- **Regra 22 (Governança Git)** no `system_prompt.md` — main protegida, branch1 exclusiva, confirmação de branch ativa e marcador de versão obrigatório
+- **`.github/CODEOWNERS`** — toda alteração via PR para `main` exige revisão do owner
+- **`docs/GOVERNANCA_v1.3.0.md`** — modelo GitHub-fonte / workspaces-IA-isolados, estratégia de branches (main/branch1/branch2/dev), gate de promoção para main e checklist de sincronização
+- **`docs/BACKLOG.md`** — backlog oficial versionado com milestones v1.3.0 / v1.4.0 / v2.0.0
+- **Seção "Governança e Branches"** no README.md
+- Marcadores `<!-- Version: v1.3.0 -->` nos arquivos alterados
+
+### Changed
+- **Regra 11** reformulada — auditoria/revisão/refatoração proibidas apenas quando implícitas; permitidas mediante solicitação explícita do usuário-chefe
+- Versão global: `1.2.0-beta` → `1.3.0-beta` (control, pvn.conf, postinst)
+
+---
+
+
 ## [1.2.0] - 2026-07-21
 
 ### Added

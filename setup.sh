@@ -2,8 +2,9 @@
 # ╔══════════════════════════════════════════════════════════════════╗
 # ║                                                                  ║
 # ║   POIVON - Setup Completo para Termux                            ║
-# ║   PVN S¥STEM | AGENTE POIVON | skill yb                         ║
-# ║   Termux Edition                                                 ║
+# ║   PVN S¥STEM | AGENTE POIVON | skill yb POIVON                  ║
+# ║   Beta Edition — branch1                                         ║
+# ║   Versão: 1.2.0-beta                                             ║
 # ║                                                                  ║
 # ║   Uso: bash setup.sh                                             ║
 # ║   Instala via pkg install e pip install com verificação lxml    ║
@@ -48,6 +49,7 @@ echo -e "${GREEN}║                                                            
 echo -e "${GREEN}║     iniciando PVN S¥STEM - °°°°°° starting....            ║${RESET}"
 echo -e "${GREEN}║                                                              ║${RESET}"
 echo -e "${GREEN}║     POIVON AGENTE MASTER CODE - TERMUX EDITION              ║${RESET}"
+echo -e "${GREEN}║     [BETA] branch1 | v1.2.0-beta                           ║${RESET}"
 echo -e "${GREEN}║                                                              ║${RESET}"
 echo -e "${GREEN}╚══════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
@@ -159,7 +161,8 @@ echo ""
 export CFLAGS="-I$PREFIX/include/libxml2 -I$PREFIX/include/libxslt"
 export LDFLAGS="-L$PREFIX/lib -lxml2 -lxslt -lz -lm"
 
-if pip install lxml --no-binary lxml 2>/dev/null; then
+# Tentar instalar lxml (pode falhar no Termux por falta de headers)
+if pip install lxml 2>/dev/null; then
     echo ""
     echo -e "  ${GREEN}[OK]${RESET}   lxml instalado com sucesso!"
     LXML_OK=true
@@ -173,7 +176,7 @@ fi
 
 echo ""
 
-# Pacotes complementares
+# Pacotes complementares (fix: adicionar todos que estavam faltando no relatório)
 echo -e "  ${CYAN}┌──────────────────────────────────────────────────────┐${RESET}"
 echo -e "  ${CYAN}│ pip install - pacotes complementares                 │${RESET}"
 echo -e "  ${CYAN}└──────────────────────────────────────────────────────┘${RESET}"
@@ -215,12 +218,11 @@ echo -e "${BOLD}${BLUE}[7/8] Configurando permissões e estrutura...${RESET}"
 if [ -d "$HOME/storage/shared" ]; then
     echo -e "  ${GREEN}[OK]${RESET}   Storage já configurado (~/storage/shared existe)"
 else
-    # Executar termux-setup-storage sem interação
     termux-setup-storage <<< "y" 2>/dev/null || termux-setup-storage 2>/dev/null || true
     sleep 1
 fi
 
-# Criar estrutura POIVON (mesmo se storage já existia)
+# Criar estrutura POIVON
 mkdir -p "$HOME/storage/shared/POIVON/projects"
 mkdir -p "$HOME/storage/shared/POIVON/scripts"
 mkdir -p "$HOME/storage/shared/POIVON/data"
@@ -228,7 +230,7 @@ mkdir -p "$HOME/storage/shared/POIVON/backups"
 mkdir -p "$HOME/storage/shared/POIVON/guides"
 mkdir -p "$HOME/storage/shared/POIVON/logs"
 
-# Criar diretórios de projeto na HOME também (fallback)
+# Fallback na HOME
 mkdir -p "$HOME/POIVON/projects"
 mkdir -p "$HOME/POIVON/scripts"
 mkdir -p "$HOME/POIVON/data"
@@ -315,7 +317,7 @@ echo ""
 echo -e "${GREEN}╔══════════════════════════════════════════════════════════════╗${RESET}"
 echo -e "${GREEN}║                                                              ║${RESET}"
 echo -e "${GREEN}║   ✓✓✓  POIVON instalado com sucesso!  ✓✓✓                   ║${RESET}"
-echo -e "${GREEN}║                                                              ║${RESET}"
+echo -e "${GREEN}║   [BETA] v1.2.0-beta | branch1                              ║${RESET}"
 echo -e "${GREEN}║   PVN S¥STEM - AGENTE - POIVON                               ║${RESET}"
 echo -e "${GREEN}║                                                              ║${RESET}"
 echo -e "${GREEN}╠══════════════════════════════════════════════════════════════╣${RESET}"
@@ -337,7 +339,8 @@ echo -e "${GREEN}║    ~/storage/shared/POIVON/logs/      Logs                 
 echo -e "${GREEN}╚══════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 echo -e "${CYAN}──────────────────────────────────────────────────────────${RESET}"
-echo -e "${CYAN}  PVN S¥STEM | AGENTE POIVON | skill yb | Termux Edition${RESET}"
+echo -e "${CYAN}  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta${RESET}"
+echo -e "${CYAN}  Termux Edition | branch1 | v1.2.0-beta${RESET}"
 echo -e "${CYAN}──────────────────────────────────────────────────────────${RESET}"
 echo ""
 echo -e "${BOLD}${WHITE}  Pronto! Digite:${RESET}"

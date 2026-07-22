@@ -3,6 +3,7 @@
 POIVON - Servidor Local Python
 PVN S¥STEM | AGENTE POIVON | skill yb
 Termux Edition
+[BETA] branch1 | v1.2.0-beta
 """
 import http.server
 import socketserver

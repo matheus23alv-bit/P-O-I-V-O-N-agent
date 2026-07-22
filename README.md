@@ -1,3 +1,4 @@
+<!-- Version: v1.3.0 -->
 # POIVON — Agente Determinístico de Engenharia para Termux
 
 ## PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Termux Edition
@@ -30,8 +31,50 @@
 11. [Versionamento](#versionamento)
 12. [Changelog](#changelog)
 13. [Licença](#licença)
+14. [Governança e Branches](#governança-e-branches)
 
 ---
+
+## Status da Versão Atual
+
+**Versão:** `1.3.1-beta` (22/07/2026)  
+**Canal:** Beta (branch1) — desenvolvimento em andamento  
+**Branch de próxima linha:** `branch2` (v2.0.0-beta — LLM + Firebase em desenvolvimento)  
+**Maturidade:** Infraestrutura sólida, testes parciais, integração LLM ainda em stubs
+
+### O que funciona ✓
+- Instalação e setup completos (Termux nativo)
+- Gerenciamento de pacotes (pkg, pip, npm)
+- Servidor HTTP na porta 8080
+- Gerador de CV (`pvn cv`)
+- Gerador de projetos web
+- Backup automático
+- Splash screen e indicadores ASCII
+- Suite de testes (`test_all.sh` — **100% em sandbox**: 52/52, ver `RELATORIO_TESTES_v2_SANDBOX.md`)
+- CI de proteção de branches
+- Governança de branches (main/branch1/branch2/dev)
+
+### O que está em desenvolvimento 🔧
+- Integração com LLM real (atualmente stubs: `pvn criar/editar/corrigir/revisar/refatorar/guias`)
+- Firebase autenticação real (atualmente guias textuais)
+- Testes em Termux real (Issue #4 — requer dispositivo do mantenedor)
+
+### Gate para release Stable (main) ⏳
+Critérios para promoção branch1 → main:
+- [x] Testes ≥ 95% no sandbox — **100%** (Issues #3 e #5 fechadas)
+- [ ] Execução em Termux real com relatório (Issue #4 — único item pendente)
+- [x] Nenhum FAIL aberto no milestone v1.3
+- [ ] Aprovação do usuário-chefe
+
+**Status atual:** PARCIALMENTE PRONTO — release estável autorizada pelo mantenedor em 22/07/2026; Termux real (Issue #4) segue como pendência pós-release.
+
+### Documentação oficial
+- **[docs/GOVERNANCA_v1.3.0.md](docs/GOVERNANCA_v1.3.0.md)** — Modelo de autoridade, branches, gate de promoção, checklist de sincronização
+- **[docs/BACKLOG.md](docs/BACKLOG.md)** — Backlog versionado com milestones v1.3.0, v1.4.0, v2.0.0
+- **[PROTECAO_BRANCH.md](PROTECAO_BRANCH.md)** — Regras de branches e como fazer mudanças
+
+---
+
 
 ## Instalação Rápida
 
@@ -281,6 +324,27 @@ Resumo:
 | `v1.0.0` | 2026-07-21 | Lançamento inicial — agente base, setup, splash screen |
 | `v1.1.0` | 2026-07-21 | CHANGELOG + version.sh + fix tabela verificação |
 | `v1.2.0` | 2026-07-21 | LLM atualizado (21 regras) + CV básico + 7 bugs corrigidos |
+
+---
+
+## Governança e Branches
+
+<!-- Version: v1.3.0 -->
+
+**GitHub é a fonte geral e oficial do projeto.** Workspaces de IA (ChatGPT Projects, Claude Projects e similares) são ambientes isolados de engenharia: tudo que é produzido neles é **pré-oficial** até ser testado, aprovado pelo usuário-chefe e sincronizado na branch de trabalho.
+
+| Branch | Canal | Função | Push direto |
+|--------|-------|--------|-------------|
+| `main` | Stable | Produção, releases e tags | **BLOQUEADO** — somente PR aprovado pelo owner |
+| `branch1` | Beta | Canal ativo: consolidação e estabilização | Permitido (sufixo `-beta`) |
+| `branch2` | Next | Linha v2.x — integração LLM e Firebase | Permitido (sufixo `-beta`) |
+| `dev` | Dev | Experimentos livres | Permitido |
+
+**Fluxo:** tarefa → consulta à branch alvo → escopo mínimo → produção no workspace → testes → diff + evidências → aprovação do usuário-chefe → push na branch de trabalho → (quando estável) PR para `main`.
+
+**Gate de promoção `branch1 → main`:** ver `docs/GOVERNANCA_v1.3.0.md`. Nenhuma IA, modelo ou colaborador atualiza a `main` diretamente; a decisão final é sempre do mantenedor, passo a passo.
+
+Regras completas: Regra 22 do `usr/lib/p-o-i-v-o-n/data/system_prompt.md` e `PROTECAO_BRANCH.md`.
 
 ---
 

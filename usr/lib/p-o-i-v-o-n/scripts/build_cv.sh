@@ -3,6 +3,7 @@
 # POIVON - Gerador de CV Básico (HTML/CSS)
 # PVN S¥STEM | AGENTE POIVON | skill yb POIVON
 # Termux Edition
+# [BETA] branch1 | v1.2.0-beta
 # ─────────────────────────────────────────────────────────────────────
 #
 # Uso: bash build_cv.sh

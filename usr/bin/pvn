@@ -1,8 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 # ─────────────────────────────────────────────────────
 # POIVON - Binário Principal
-# PVN S¥STEM | AGENTE POIVON | skill yb
-# Termux Edition
+# PVN S¥STEM | AGENTE POIVON | skill yb POIVON
+# Beta Edition — branch1
 # ─────────────────────────────────────────────────────
 
 PVN_PREFIX="$PREFIX"
@@ -20,7 +20,7 @@ fi
 
 # Verificar diretório de trabalho
 if [ ! -d "$WORK_DIR" ]; then
-    mkdir -p "$WORK_DIR/projects" "$WORK_DIR/scripts" "$WORK_DIR/data" "$WORK_DIR/backups"
+    mkdir -p "$WORK_DIR/projects" "$WORK_DIR/scripts" "$WORK_DIR/data" "$WORK_DIR/backups" "$WORK_DIR/logs" "$WORK_DIR/guides"
 fi
 
 # Splash Screen
@@ -45,12 +45,13 @@ splash_screen() {
     echo "║     iniciando PVN S¥STEM - °°°°°° starting....  ║"
     echo "║                                                  ║"
     echo "║     POIVON AGENTE MASTER CODE - TERMUX EDITION   ║"
+    echo "║     [BETA] branch1 | v${AGENT_VERSION:-1.2.0-beta} ║"
     echo "║                                                  ║"
     echo "╚══════════════════════════════════════════════════╝"
     echo ""
     echo "┌──────────────────────────────────────────────────┐"
     echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
-    echo "│   PVN S¥STEM | AGENTE POIVON | skill yb         │"
+    echo "│   PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta │"
     echo "└──────────────────────────────────────────────────┘"
     echo ""
 }
@@ -60,6 +61,7 @@ show_help() {
     echo ""
     echo "╔══════════════════════════════════════════════════╗"
     echo "║  P-O-I-V-O-N - Agente para Termux               ║"
+    echo "║  [BETA] branch1 | v${AGENT_VERSION:-1.2.0-beta}         ║"
     echo "╠══════════════════════════════════════════════════╣"
     echo "║                                                  ║"
     echo "║  Uso: pvn <comando> [argumentos]                 ║"
@@ -83,7 +85,7 @@ show_help() {
     echo "║  help        Esta ajuda                           ║"
     echo "║                                                  ║"
     echo "╠══════════════════════════════════════════════════╣"
-    echo "║  PVN S¥STEM | AGENTE POIVON | skill yb           ║"
+    echo "║  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta ║"
     echo "╚══════════════════════════════════════════════════╝"
     echo ""
 }
@@ -96,6 +98,7 @@ check_status() {
     echo "└──────────────────────────────────────────────────┘"
     echo ""
     echo "[STATUS] Verificando ambiente Termux..."
+    echo "[STATUS] Canal: Beta | Branch: branch1 | v${AGENT_VERSION:-1.2.0-beta}"
     echo ""
     
     # Verificar Python
@@ -139,7 +142,8 @@ check_status() {
     
     echo ""
     echo "─────────────────────────────────────────"
-    echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+    echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta"
+    echo "  branch1 | v${AGENT_VERSION:-1.2.0-beta}"
     echo "─────────────────────────────────────────"
     echo ""
 }
@@ -152,6 +156,7 @@ do_setup() {
     echo "└──────────────────────────────────────────────────┘"
     echo ""
     echo "[SETUP] Configurando ambiente POIVON Termux..."
+    echo "[SETUP] Canal: Beta | Branch: branch1"
     echo ""
     
     echo "[1/5] Atualizando repositórios..."
@@ -162,24 +167,28 @@ do_setup() {
     pkg install -y python nodejs git curl wget nano clang 2>/dev/null
     
     echo "[3/5] Instalando pacotes Python..."
-    pip install flask requests beautifulsoup4 pillow pygments 2>/dev/null
+    pip install flask requests beautifulsoup4 pillow pygments html5lib colorama watchdog 2>/dev/null
     
     echo "[4/5] Concedendo permissões..."
-    termux-setup-storage 2>/dev/null
+    termux-setup-storage 2>/dev/null || true
     
     echo "[5/5] Criando estrutura de diretórios..."
     mkdir -p "$WORK_DIR/projects"
     mkdir -p "$WORK_DIR/scripts"
     mkdir -p "$WORK_DIR/data"
     mkdir -p "$WORK_DIR/backups"
+    mkdir -p "$WORK_DIR/logs"
+    mkdir -p "$WORK_DIR/guides"
     
     echo ""
     echo "╔══════════════════════════════════════════════════╗"
     echo "║   ✓✓✓  [ P-O-I-V-O-N ]  concluído.....•  ✓✓✓   ║"
+    echo "║   [BETA] branch1 | v${AGENT_VERSION:-1.2.0-beta}    ║"
     echo "╚══════════════════════════════════════════════════╝"
     echo ""
     echo "─────────────────────────────────────────"
-    echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+    echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta"
+    echo "  branch1 | v${AGENT_VERSION:-1.2.0-beta}"
     echo "─────────────────────────────────────────"
     echo ""
 }
@@ -252,7 +261,8 @@ do_backup() {
     
     echo ""
     echo "─────────────────────────────────────────"
-    echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+    echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta"
+    echo "  branch1 | v${AGENT_VERSION:-1.2.0-beta}"
     echo "─────────────────────────────────────────"
     echo ""
 }
@@ -284,8 +294,8 @@ case "${1:-}" in
         do_backup "$2"
         ;;
     "version"|"-v"|"--version")
-        echo "p-o-i-v-o-n versão ${AGENT_VERSION:-1.2.0}"
-        echo "PVN S¥STEM | AGENTE POIVON | skill yb | Termux Edition"
+        echo "p-o-i-v-o-n versão ${AGENT_VERSION:-1.2.0-beta}"
+        echo "PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta | branch1"
         ;;
     "criar"|"editar"|"corrigir"|"revisar"|"refatorar"|"firebase"|"guias"|"guia")
         echo ""
@@ -298,7 +308,7 @@ case "${1:-}" in
         echo "[POIVON] Aguarde a resposta do agente..."
         echo ""
         echo "─────────────────────────────────────────"
-        echo "  PVN S¥STEM | AGENTE POIVON | skill yb"
+        echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta | branch1"
         echo "─────────────────────────────────────────"
         ;;
     *)
