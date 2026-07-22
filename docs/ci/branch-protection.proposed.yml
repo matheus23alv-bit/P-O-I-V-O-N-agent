@@ -1,0 +1,179 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║                                                                  ║
+# ║   POIVON - Proteção de Branch                                     ║
+# ║   PVN S¥STEM | AGENTE POIVON | skill yb POIVON                  ║
+# ║   Beta Edition — branch1                                         ║
+# ║                                                                  ║
+# ║   Regras:                                                         ║
+# ║   - main: BLOQUEADA para push direto (só via PR aprovado)        ║
+# ║   - branch1 (Beta): Canal ativo de desenvolvimento               ║
+# ║                                                                  ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: Branch Protection & CI
+
+on:
+  push:
+    branches:
+      - main
+      - branch1
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # ──────────────────────────────────────────────────────────────────
+  # BLOQUEAR PUSH DIRETO NA MAIN
+  # ──────────────────────────────────────────────────────────────────
+  block-direct-push:
+    name: "Bloquear Push Direto na Main"
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "REJEITAR push direto na main"
+        run: |
+          echo "╔══════════════════════════════════════════════════════════════╗"
+          echo "║                                                              ║"
+          echo "║   [ERRO] Push direto na branch 'main' é BLOQUEADO            ║"
+          echo "║                                                              ║"
+          echo "║   Canal Beta ativo: branch1                                  ║"
+          echo "║   Para atualizar a main:                                     ║"
+          echo "║   1. Faça mudanças em branch1 (Beta)                         ║"
+          echo "║   2. Abra um Pull Request para main                          ║"
+          echo "║   3. Aguarde aprovação do maintainer                         ║"
+          echo "║   4. Mergue via PR                                           ║"
+          echo "║                                                              ║"
+          echo "║   PVN S¥STEM | AGENTE POIVON | Beta | branch1                ║"
+          echo "║                                                              ║"
+          echo "╚══════════════════════════════════════════════════════════════╝"
+          exit 1
+
+  # ──────────────────────────────────────────────────────────────────
+  # VALIDAR INTEGRIDADE NA BRANCH1 (BETA)
+  # ──────────────────────────────────────────────────────────────────
+  validate-beta:
+    name: "Validar branch1 (Beta)"
+    if: github.ref == 'refs/heads/branch1' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          ref: branch1
+
+      - name: "Validar estrutura do projeto"
+        run: |
+          echo "╔══════════════════════════════════════════════════════════════╗"
+          echo "║   PVN S¥STEM | Validação CI | branch1 (Beta)                ║"
+          echo "╚══════════════════════════════════════════════════════════════╝"
+          echo ""
+          
+          # Verificar arquivos essenciais
+          echo "[1/5] Verificando arquivos essenciais..."
+          ESSENTIAL_FILES=(
+            "setup.sh"
+            "build.sh"
+            "version.sh"
+            "install_termux.sh"
+            "README.md"
+            "CHANGELOG.md"
+            "DEBIAN/control"
+            "DEBIAN/postinst"
+            "DEBIAN/preinst"
+            "usr/bin/pvn"
+            "usr/etc/p-o-i-v-o-n/pvn.conf"
+            "usr/lib/p-o-i-v-o-n/data/system_prompt.md"
+            "usr/lib/p-o-i-v-o-n/data/dicionario_termux.md"
+          )
+          
+          ALL_OK=true
+          for file in "${ESSENTIAL_FILES[@]}"; do
+            if [ -f "$file" ]; then
+              echo "  [OK] $file"
+            else
+              echo "  [FALHOU] $file — ARQUIVO OBRIGATÓRIO FALTANDO"
+              ALL_OK=false
+            fi
+          done
+          
+          if [ "$ALL_OK" = false ]; then
+            echo ""
+            echo "[ERRO] Arquivos obrigatórios faltando. Rejeitando push."
+            exit 1
+          fi
+          
+          echo ""
+          echo "[2/5] Verificando permissões..."
+          if [ -x "usr/bin/pvn" ]; then
+            echo "  [OK] usr/bin/pvn é executável"
+          else
+            echo "  [FALHOU] usr/bin/pvn NÃO é executável"
+            exit 1
+          fi
+          
+          echo ""
+          echo "[3/5] Verificando versão Beta..."
+          VERSION=$(grep "^Version:" DEBIAN/control | awk '{print $2}')
+          if echo "$VERSION" | grep -q "beta"; then
+            echo "  [OK] Versão contém sufixo -beta: $VERSION"
+          else
+            echo "  [FALHOU] Versão deve conter -beta na branch1: $VERSION"
+            exit 1
+          fi
+          
+          echo ""
+          echo "[4/5] Verificando configuração..."
+          if grep -q "BRANCH_NAME=\"branch1\"" usr/etc/p-o-i-v-o-n/pvn.conf; then
+            echo "  [OK] pvn.conf aponta para branch1"
+          else
+            echo "  [FALHOU] pvn.conf não aponta para branch1"
+            exit 1
+          fi
+          
+          echo ""
+          echo "[5/5] Validação completa!"
+          echo ""
+          echo "╔══════════════════════════════════════════════════════════════╗"
+          echo "║   ✓✓✓  branch1 (Beta) validada com sucesso!  ✓✓✓            ║"
+          echo "║   PVN S¥STEM | AGENTE POIVON | Beta Edition                  ║"
+          echo "╚══════════════════════════════════════════════════════════════╝"
+
+  # ──────────────────────────────────────────────────────────────────
+  # VALIDAR PR PARA MAIN (só aprovados pelo maintainer)
+  # ──────────────────────────────────────────────────────────────────
+  pr-validation:
+    name: "Validar PR para Main"
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Verificar aprovação"
+        run: |
+          echo "╔══════════════════════════════════════════════════════════════╗"
+          echo "║   PVN S¥STEM | PR Validation                               ║"
+          echo "║                                                              ║"
+          echo "║   PR #${{ github.event.pull_request.number }} → main         ║"
+          echo "║   De: ${{ github.event.pull_request.head.ref }}              ║"
+          echo "║   Por: @${{ github.actor }}                                   ║"
+          echo "║                                                              ║"
+          echo "║   Status: Aguardando aprovação do maintainer                 ║"
+          echo "║   (Somente o owner pode aprovar merge para main)             ║"
+          echo "╚══════════════════════════════════════════════════════════════╝"
+
+  # ──────────────────────────────────────────────────────────────────
+  # SUÍTE COMPLETA DE TESTES (Issue #5) — Version: v1.3.1
+  # ──────────────────────────────────────────────────────────────────
+  test-suite:
+    name: "Suíte de Testes (test_all.sh)"
+    if: (github.ref == 'refs/heads/branch1' || github.ref == 'refs/heads/branch2') && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Dependências (paridade com Termux)"
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q jq nano tree clang
+          pip install flask requests beautifulsoup4 html5lib pillow pygments colorama watchdog lxml
+          sudo npm install -g --silent nodemon typescript ts-node http-server
+      - name: "Executar test_all.sh (falha se FAIL>0)"
+        run: bash test_all.sh
