@@ -26,10 +26,10 @@
 
 | ID | P | Item | Status |
 |----|---|------|--------|
-| BL-010 | P1 | Executar test_all.sh em Termux REAL (Android) e gerar RELATORIO_TESTES_v2.md | TODO |
-| BL-011 | P1 | CI: rodar test_all.sh (modo sandbox) no workflow em cada push na branch1 | TODO |
+| BL-010 | P1 | Executar test_all.sh em Termux REAL (Android) e gerar RELATORIO_TESTES_v2.md | PARCIAL — sandbox 100%; Termux real pendente (Issue #4) |
+| BL-011 | P1 | CI: rodar test_all.sh (modo sandbox) no workflow em cada push na branch1 | DONE (job test-suite no CI) |
 | BL-012 | P2 | Teste automatizado que valida branch ativa + marcador de versão antes de release | TODO |
-| BL-013 | P2 | Tratar WARN de clang: documentar como opcional ou incluir no setup | TODO |
+| BL-013 | P2 | Tratar WARN de clang: documentar como opcional ou incluir no setup | DONE (clang no CI e ambiente) |
 | BL-014 | P3 | Badge de versão/CI no README | TODO |
 
 ## MILESTONE v2.0.0-beta — Inteligência Real

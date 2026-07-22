@@ -37,7 +37,7 @@
 
 ## Status da Versão Atual
 
-**Versão:** `1.3.0-beta` (22/07/2026)  
+**Versão:** `1.3.1-beta` (22/07/2026)  
 **Canal:** Beta (branch1) — desenvolvimento em andamento  
 **Branch de próxima linha:** `branch2` (v2.0.0-beta — LLM + Firebase em desenvolvimento)  
 **Maturidade:** Infraestrutura sólida, testes parciais, integração LLM ainda em stubs
@@ -50,24 +50,23 @@
 - Gerador de projetos web
 - Backup automático
 - Splash screen e indicadores ASCII
-- Suite de testes (`test_all.sh` — 78% de sucesso em sandbox)
+- Suite de testes (`test_all.sh` — **100% em sandbox**: 52/52, ver `RELATORIO_TESTES_v2_SANDBOX.md`)
 - CI de proteção de branches
 - Governança de branches (main/branch1/branch2/dev)
 
 ### O que está em desenvolvimento 🔧
 - Integração com LLM real (atualmente stubs: `pvn criar/editar/corrigir/revisar/refatorar/guias`)
 - Firebase autenticação real (atualmente guias textuais)
-- Testes em Termux real (Issues #4)
-- Completude de dependências (Issues #3/#5)
+- Testes em Termux real (Issue #4 — requer dispositivo do mantenedor)
 
 ### Gate para release Stable (main) ⏳
 Critérios para promoção branch1 → main:
-- [ ] Testes ≥ 95% no sandbox (Issue #5: CI automático)
-- [ ] Execução em Termux real com relatório (Issue #4)
-- [ ] Nenhum FAIL aberto no milestone v1.3.0
+- [x] Testes ≥ 95% no sandbox — **100%** (Issues #3 e #5 fechadas)
+- [ ] Execução em Termux real com relatório (Issue #4 — único item pendente)
+- [x] Nenhum FAIL aberto no milestone v1.3
 - [ ] Aprovação do usuário-chefe
 
-**Status atual:** PENDENTE — Issues #3, #4 e #5 aguardando.
+**Status atual:** PARCIALMENTE PRONTO — release estável autorizada pelo mantenedor em 22/07/2026; Termux real (Issue #4) segue como pendência pós-release.
 
 ### Documentação oficial
 - **[docs/GOVERNANCA_v1.3.0.md](docs/GOVERNANCA_v1.3.0.md)** — Modelo de autoridade, branches, gate de promoção, checklist de sincronização

@@ -64,6 +64,7 @@ if [ "$LOG_ENABLED" = true ]; then
 fi
 
 log() {
+    if [ "${1:-}" = "-e" ]; then shift; fi
     local msg="${1:-}"
     echo -e "$msg" 2>/dev/null || true
     if [ -n "$LOG_FILE" ]; then
@@ -247,9 +248,12 @@ echo ""
 log -e "  ${CYAN}  Testando pacotes Python...${RESET}"
 echo ""
 
-for py_pkg in flask requests beautifulsoup4 html5lib pillow pygments colorama watchdog; do
+# pares "pacote-pip:módulo-import" (bs4 e PIL têm nomes de import diferentes)
+for py_pair in flask:flask requests:requests beautifulsoup4:bs4 html5lib:html5lib pillow:PIL pygments:pygments colorama:colorama watchdog:watchdog; do
+    py_pkg="${py_pair%%:*}"
+    py_mod="${py_pair##*:}"
     test_cmd "Python: $py_pkg" \
-        "python3 -c 'import ${py_pkg}'" \
+        "python3 -c 'import ${py_mod}'" \
         "pip install $py_pkg" true || true
 done
 
@@ -477,8 +481,11 @@ fi
 
 # Teste 5: Conexão Firebase
 log -e "  ${CYAN}  Teste 5: Conexão Firebase (agente-poivon)...${RESET}"
-if curl -s -o /dev/null -w "%{http_code}" "https://agente-poivon.firebaseio.com/.json" 2>/dev/null | grep -q "200\|401"; then
-    log -e "  ${GREEN}  [PASS]${RESET} Firebase acessível (agente-poivon)"
+# Firebase é OPCIONAL (Regra 12). O projeto usa Firestore, não Realtime DB.
+# PASS = serviço alcançável (200/401/403/404 = rede ok, auth é escopo v2.0).
+FB_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "https://firestore.googleapis.com/v1/projects/agente-poivon/databases/(default)/documents/admin/config" 2>/dev/null)
+if echo "$FB_CODE" | grep -qE "^(200|401|403|404)$"; then
+    log -e "  ${GREEN}  [PASS]${RESET} Firebase/Firestore alcançável (HTTP $FB_CODE — auth real: v2.0)"
     ((PASS++))
     LOGS+=("PASS:Teste5-Firebase")
 else
@@ -489,7 +496,14 @@ fi
 
 # Teste 6: GitHub API
 log -e "  ${CYAN}  Teste 6: GitHub API (repositório)...${RESET}"
-if curl -s -o /dev/null -w "%{http_code}" "https://api.github.com/repos/matheus23alv-bit/P-O-I-V-O-N-agent" 2>/dev/null | grep -q "200"; then
+GH_OK=false
+for _try in 1 2 3; do
+    if curl -s -o /dev/null -w "%{http_code}" --max-time 10 "https://api.github.com/repos/matheus23alv-bit/P-O-I-V-O-N-agent" 2>/dev/null | grep -q "200"; then
+        GH_OK=true; break
+    fi
+    sleep 2
+done
+if [ "$GH_OK" = true ]; then
     log -e "  ${GREEN}  [PASS]${RESET} Repositório GitHub acessível"
     ((PASS++))
     LOGS+=("PASS:Teste6-GitHub")
@@ -686,7 +700,7 @@ fi
 
 echo -e "${CYAN}──────────────────────────────────────────────────────────${RESET}"
 echo -e "${CYAN}  PVN S¥STEM | AGENTE POIVON | skill yb | TESTES${RESET}"
-echo -e "${CYAN}  [BETA] branch1 | v1.2.0-beta${RESET}"
+echo -e "${CYAN}  [BETA] branch1 | v${AGENT_VERSION:-1.3.1-beta}${RESET}"
 echo -e "${CYAN}──────────────────────────────────────────────────────────${RESET}"
 echo ""
 

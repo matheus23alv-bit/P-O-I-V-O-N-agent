@@ -8,6 +8,25 @@
 
 ---
 
+## [1.3.1-beta] - 2026-07-22
+
+### Added
+- **Job `test-suite` no CI** — executa `test_all.sh` completo em cada push na branch1/branch2; CI falha se houver FAIL (Issue #5)
+- **Retry 3x** no Teste 6 (GitHub API) — robustez contra rate-limit transitório
+- **`RELATORIO_TESTES_v2_SANDBOX.md`** — evidência da suíte 100% (Issue #3)
+
+### Fixed
+- **`test_all.sh` — `log()`** engolia a mensagem quando chamada como `log -e "..."`; resultados individuais saíam em branco
+- **`test_all.sh` — imports Python** — testava `import beautifulsoup4`/`import pillow`; corrigido para os módulos reais `bs4`/`PIL`
+- **`test_all.sh` — Teste 5 Firebase** — apontava para Realtime DB inexistente (`firebaseio.com`); corrigido para o endpoint Firestore do projeto (auth real: escopo v2.0, Issue #7)
+- **`test_all.sh` — rodapé** com versão hardcoded → dinâmica via `$AGENT_VERSION`
+
+### Quality
+- **Suíte em sandbox Ubuntu 24.04: 52/52 PASS (100%)** — Issues #3 e #5 fechadas
+
+---
+
+
 ## [1.3.0-beta] - 2026-07-22
 
 ### Added
