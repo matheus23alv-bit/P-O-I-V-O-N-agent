@@ -1,10 +1,54 @@
 # Changelog — POIVON
 
+<!-- Version: v2.0.0 -->
+
 **Projeto:** Agente POIVON — Executor Determinístico de Engenharia para Termux  
 **Manutenção:** MATHEUS <mentalista-framework@pvn.system>  
 **Formato:** PVN S¥STEM - AGENTE - POIVON  
 **Plataforma:** Termux (Android)  
 **Convenção:** [Semantic Versioning](https://semver.org) + [Keep a Changelog](https://keepachangelog.com)
+
+---
+
+## [2.0.0] - 2026-07-21 — CONSOLIDAÇÃO ESTÁVEL (branch1 única)
+
+> Decisão do usuário-chefe: branch1 é a ÚNICA branch de trabalho.
+> Esta versão absorve e encerra branch2 (linha Next) e branch3
+> (pacote auditado); ambas deixam de existir como branches.
+> Histórico do que foi reprovado/encerrado: `docs/REPROVADOS.md`.
+
+### Added
+- **`llm_client.sh`** — cliente Anthropic Messages API: `ask` e `criar` (manifesto `### FILE:`/`### END`); system_prompt.md como contexto; chave via pvn.conf/env, NUNCA hardcoded; `--selftest` offline (ex-branch2)
+- **`pvn criar <ideia>`** — REAL: gera projeto em `~/storage/shared/POIVON/projects/<slug>/`
+- **`pvn ai|perguntar <pergunta>`** — passagem direta ao LLM operador
+- **`pvn editar|corrigir|revisar|refatorar <alvo>`** — REAIS via LLM com prefixo de tarefa (fim dos stubs de engenharia)
+- **`pvn guia <nome>`** — gera guia passo a passo Termux via LLM; **`pvn guias`** lista temas
+- **`pvn firebase {status|get|set|logout|guia}`** — agente v2 REAL: Identity Toolkit → Firestore REST; escrita restrita a `gnu.*` via `updateMask` (Regra 12 por construção); cache idToken 45min umask 077 (ex-branch2)
+- **Setup opt-in de chave** — `setup_main.sh`/`setup_branch1.sh` perguntam (padrão N) se o usuário quer configurar chave; agente é autossuficiente sem ela
+- **`pvn chave`** — grava a credencial no `pvn.conf` local com entrada oculta e chmod 600 (chave NUNCA em chat, print ou commit)
+- **`pvn +mm ¥00 <caminho>`** — memória da pasta padrão em `~/.config/poivon/config` (chmod 600); valida `~/`, `$HOME`, `$PREFIX`; aceita `¥`/`￥` (ex-branch3)
+- **Regra 23** (Escopo Exclusivo Termux + Identidade a cada 23 linhas) no `system_prompt.md` (ex-branch3)
+- **Dicionário de sigilos** `@ + ¥ $ #` (ex-branch3)
+- **`llm_fallback.py`** — biblioteca Python da API (uso futuro por server.py/agentes Python; o CLI usa `llm_client.sh`)
+- **`setup_main.sh` / `setup_branch1.sh`** — instaladores por canal: estável (main) e desenvolvimento (branch1)
+- Chaves de configuração em `pvn.conf` (placeholders vazios — proibido commitar preenchidas)
+
+### Changed
+- Canal/versão: `AGENT_VERSION=2.0.0`, novo `AGENT_CHANNEL` em pvn.conf; banners deixam de fixar "branch1"
+- Fallback "não sei": AMBAS as formas — manual (`pvn ai`) e embutida nos comandos de engenharia (encerra pendência da sessão v1.3.0)
+
+### Fixed
+- `+mm`: gravação sem `sed` (caminhos com `|` não quebram); guarda contra `$PREFIX` vazio; aceita `￥` full-width (teclado Android)
+- CHANGELOG passa a carregar marcador de versão no topo (GAP 1 da auditoria)
+
+### Security
+- Parser de manifesto bloqueia caminhos absolutos e `..` (selftest)
+- Escrita Firestore impossível fora de `admin/config → gnu.*`
+- Nenhuma credencial em arquivo versionado (varredura `sk-ant`: zero)
+
+### Governança
+- branch2 e branch3 ENCERRADAS (conteúdo absorvido; backup por tag antes da remoção)
+- main passa a receber esta consolidação estável por decisão explícita do mantenedor
 
 ---
 

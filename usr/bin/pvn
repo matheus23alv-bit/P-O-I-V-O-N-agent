@@ -2,11 +2,12 @@
 # ─────────────────────────────────────────────────────
 # POIVON - Binário Principal
 # PVN S¥STEM | AGENTE POIVON | skill yb POIVON
-# Beta Edition — branch1
+# Stable Edition — canal via AGENT_CHANNEL
+# Version: v2.0.0
 # ─────────────────────────────────────────────────────
 
 PVN_PREFIX="$PREFIX"
-PVN_CONFIG="$PVN_PREFIX/etc/p-o-i-v-o-n/pvn.conf"
+PVN_CONFIG="${PVN_CONFIG:-$PREFIX/etc/p-o-i-v-o-n/pvn.conf}"
 PVN_AGENTS="$PVN_PREFIX/lib/p-o-i-v-o-n/agents"
 PVN_SCRIPTS="$PVN_PREFIX/lib/p-o-i-v-o-n/scripts"
 PVN_DOCS="$PVN_PREFIX/share/p-o-i-v-o-n/docs"
@@ -45,13 +46,13 @@ splash_screen() {
     echo "║     iniciando PVN S¥STEM - °°°°°° starting....  ║"
     echo "║                                                  ║"
     echo "║     POIVON AGENTE MASTER CODE - TERMUX EDITION   ║"
-    echo "║     [BETA] branch1 | v${AGENT_VERSION:-1.2.0-beta} ║"
+    echo "║     [${AGENT_CHANNEL:-BETA}] v${AGENT_VERSION:-1.2.0-beta} ║"
     echo "║                                                  ║"
     echo "╚══════════════════════════════════════════════════╝"
     echo ""
     echo "┌──────────────────────────────────────────────────┐"
     echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
-    echo "│   PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta │"
+    echo "│   PVN S¥STEM | AGENTE POIVON | skill yb POIVON │"
     echo "└──────────────────────────────────────────────────┘"
     echo ""
 }
@@ -61,7 +62,7 @@ show_help() {
     echo ""
     echo "╔══════════════════════════════════════════════════╗"
     echo "║  P-O-I-V-O-N - Agente para Termux               ║"
-    echo "║  [BETA] branch1 | v${AGENT_VERSION:-1.2.0-beta}         ║"
+    echo "║  [${AGENT_CHANNEL:-BETA}] v${AGENT_VERSION:-1.2.0-beta}         ║"
     echo "╠══════════════════════════════════════════════════╣"
     echo "║                                                  ║"
     echo "║  Uso: pvn <comando> [argumentos]                 ║"
@@ -85,7 +86,7 @@ show_help() {
     echo "║  help        Esta ajuda                           ║"
     echo "║                                                  ║"
     echo "╠══════════════════════════════════════════════════╣"
-    echo "║  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta ║"
+    echo "║  PVN S¥STEM | AGENTE POIVON | skill yb POIVON ║"
     echo "╚══════════════════════════════════════════════════╝"
     echo ""
 }
@@ -98,7 +99,7 @@ check_status() {
     echo "└──────────────────────────────────────────────────┘"
     echo ""
     echo "[STATUS] Verificando ambiente Termux..."
-    echo "[STATUS] Canal: Beta | Branch: branch1 | v${AGENT_VERSION:-1.2.0-beta}"
+    echo "[STATUS] Canal: ${AGENT_CHANNEL:-Beta} | v${AGENT_VERSION:-1.2.0-beta}"
     echo ""
     
     # Verificar Python
@@ -143,7 +144,7 @@ check_status() {
     echo ""
     echo "─────────────────────────────────────────"
     echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta"
-    echo "  branch1 | v${AGENT_VERSION:-1.2.0-beta}"
+    echo "  ${AGENT_CHANNEL:-branch1} | v${AGENT_VERSION:-1.2.0-beta}"
     echo "─────────────────────────────────────────"
     echo ""
 }
@@ -156,7 +157,7 @@ do_setup() {
     echo "└──────────────────────────────────────────────────┘"
     echo ""
     echo "[SETUP] Configurando ambiente POIVON Termux..."
-    echo "[SETUP] Canal: Beta | Branch: branch1"
+    echo "[SETUP] Canal: ${AGENT_CHANNEL:-Beta}"
     echo ""
     
     echo "[1/5] Atualizando repositórios..."
@@ -183,12 +184,12 @@ do_setup() {
     echo ""
     echo "╔══════════════════════════════════════════════════╗"
     echo "║   ✓✓✓  [ P-O-I-V-O-N ]  concluído.....•  ✓✓✓   ║"
-    echo "║   [BETA] branch1 | v${AGENT_VERSION:-1.2.0-beta}    ║"
+    echo "║   [${AGENT_CHANNEL:-BETA}] v${AGENT_VERSION:-1.2.0-beta}    ║"
     echo "╚══════════════════════════════════════════════════╝"
     echo ""
     echo "─────────────────────────────────────────"
     echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta"
-    echo "  branch1 | v${AGENT_VERSION:-1.2.0-beta}"
+    echo "  ${AGENT_CHANNEL:-branch1} | v${AGENT_VERSION:-1.2.0-beta}"
     echo "─────────────────────────────────────────"
     echo ""
 }
@@ -262,14 +263,99 @@ do_backup() {
     echo ""
     echo "─────────────────────────────────────────"
     echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta"
-    echo "  branch1 | v${AGENT_VERSION:-1.2.0-beta}"
+    echo "  ${AGENT_CHANNEL:-branch1} | v${AGENT_VERSION:-1.2.0-beta}"
     echo "─────────────────────────────────────────"
     echo ""
 }
 
 # ─────────────────────────────────────────────────────
+# MEMÓRIA ¥00 (PASTA PADRÃO)  —  pvn +mm ¥00 <caminho>
+# Version: v1.3.0
+# ─────────────────────────────────────────────────────
+
+do_mm_memory() {
+    local slot="$1"
+    local caminho="$2"
+
+    case "$slot" in
+        "¥00"|"￥00") ;;   # half/full-width (teclado Android)
+        *)
+        echo "[ERRO] Slot de memória inválido: ${slot:-<vazio>}"
+        echo "[INFO] Uso: pvn +mm ¥00 <caminho>"
+        return 1 ;;
+    esac
+
+    if [ -z "$caminho" ]; then
+        echo "[ERRO] Caminho ausente."
+        echo "[INFO] Uso: pvn +mm ¥00 ~/storage/downloads/"
+        return 1
+    fi
+
+    if [ -z "${PREFIX:-}" ]; then
+        echo "[ERRO] \$PREFIX vazio — ambiente não parece Termux."
+        return 1
+    fi
+
+    # Aceita apenas: ~/... , $HOME/... , $PREFIX/... (literais)
+    # ou caminho já expandido pelo shell para dentro de $HOME/$PREFIX.
+    case "$caminho" in
+        "~/"*|'$HOME'*|'$PREFIX'*) ;;
+        "$HOME"/*) ;;
+        "$PREFIX"/*) ;;
+        *)
+            echo "[ERRO] Caminho rejeitado: $caminho"
+            echo "[INFO] Caminhos relativos (ex.: Storage/...) falham no Termux."
+            echo "[INFO] Use ~/storage/... (após termux-setup-storage),"
+            echo "[INFO] ou um caminho iniciado por \$HOME ou \$PREFIX."
+            return 1
+            ;;
+    esac
+
+    local cfg_dir="$HOME/.config/poivon"
+    local cfg_file="$cfg_dir/config"
+
+    mkdir -p "$cfg_dir"
+
+    { [ -f "$cfg_file" ] && grep -v '^PASTA_PADRAO=' "$cfg_file"; echo "PASTA_PADRAO=$caminho"; } > "$cfg_file.tmp" && mv "$cfg_file.tmp" "$cfg_file"
+
+    chmod 600 "$cfg_file"
+
+    echo "✓ memória atualizada"
+    echo "¥00 (pasta padrão) = $caminho"
+    echo "tudo sem destino explícito vai pra cá."
+}
+
+# ─────────────────────────────────────────────────────
+# CHAVE DA API  —  pvn chave  (entrada oculta, local)
+# Version: v2.0.0
+# ─────────────────────────────────────────────────────
+
+do_chave() {
+    local cfg="${PVN_CONFIG:-$PREFIX/etc/p-o-i-v-o-n/pvn.conf}"
+    if [ ! -f "$cfg" ]; then
+        echo "[ERRO] pvn.conf não encontrado em: $cfg"
+        echo "[INFO] Rode a instalação primeiro (setup_main.sh / setup_branch1.sh)."
+        return 1
+    fi
+    printf "Cole a chave da API (entrada oculta): "
+    local key; IFS= read -rs key; echo ""
+    case "$key" in
+        sk-ant-*) ;;
+        "") echo "[ERRO] Nada recebido."; return 1 ;;
+        *)  echo "[ERRO] Formato inesperado (esperado: sk-ant-...)."; return 1 ;;
+    esac
+    { grep -v '^LLM_API_KEY=' "$cfg"; echo "LLM_API_KEY=\"$key\""; } > "$cfg.tmp" && mv "$cfg.tmp" "$cfg"
+    chmod 600 "$cfg"
+    echo "✓ chave gravada (600) em: $cfg"
+    echo "→ nunca cole a chave em chats, prints ou commits."
+}
+
+# ─────────────────────────────────────────────────────
 # MAIN
 # ─────────────────────────────────────────────────────
+
+PVN_LIBDIR="$(cd "$(dirname "$0")/../lib/p-o-i-v-o-n" 2>/dev/null && pwd)"
+[ -n "$PVN_LIBDIR" ] || PVN_LIBDIR="$PREFIX/lib/p-o-i-v-o-n"
 
 case "${1:-}" in
     ""|"")
@@ -295,21 +381,49 @@ case "${1:-}" in
         ;;
     "version"|"-v"|"--version")
         echo "p-o-i-v-o-n versão ${AGENT_VERSION:-1.2.0-beta}"
-        echo "PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta | branch1"
+        echo "PVN S¥STEM | AGENTE POIVON | skill yb POIVON | ${AGENT_CHANNEL:-Beta}"
         ;;
-    "criar"|"editar"|"corrigir"|"revisar"|"refatorar"|"firebase"|"guias"|"guia")
+    "criar")
+        # v2.0: integração LLM real (Issue #15)
+        LLM_CLIENT="$PVN_LIBDIR/scripts/llm_client.sh"
+        shift
+        bash "$LLM_CLIENT" criar "$*"
+        ;;
+    "ai"|"perguntar")
+        LLM_CLIENT="$PVN_LIBDIR/scripts/llm_client.sh"
+        shift
+        bash "$LLM_CLIENT" ask "$*"
+        ;;
+    "firebase")
+        # v2.0: agente Firebase real (Issue #16)
+        shift
+        bash "$PVN_LIBDIR/agents/firebase_agent.sh" "$@"
+        ;;
+    "editar"|"corrigir"|"revisar"|"refatorar")
+        # v2.0.0: engenharia REAL via LLM (fim dos stubs)
+        LLM_CLIENT="$PVN_LIBDIR/scripts/llm_client.sh"
+        tarefa="$1"; shift
         echo ""
         echo "┌──────────────────────────────────────────────────┐"
         echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
         echo "└──────────────────────────────────────────────────┘"
+        bash "$LLM_CLIENT" ask "[TAREFA: $tarefa — Regra 10 escopo mínimo] $*"
+        ;;
+    "guia")
+        LLM_CLIENT="$PVN_LIBDIR/scripts/llm_client.sh"
+        shift
+        bash "$LLM_CLIENT" ask "[TAREFA: guia passo a passo, executável no Termux] $*"
+        ;;
+    "guias")
         echo ""
-        echo "[POIVON] Comando $1 recebido."
-        echo "[POIVON] Agente processando: pvn $1 $2"
-        echo "[POIVON] Aguarde a resposta do agente..."
-        echo ""
-        echo "─────────────────────────────────────────"
-        echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta | branch1"
-        echo "─────────────────────────────────────────"
+        echo "[GUIAS] Temas prontos: servidor | backup | python | node | git | firebase | storage"
+        echo "[GUIAS] Use: pvn guia <tema>   (gera passo a passo via agente)"
+        ;;
+    "chave")
+        do_chave || exit 1
+        ;;
+    "+mm")
+        do_mm_memory "$2" "$3" || exit 1
         ;;
     *)
         echo "[ERRO] Comando desconhecido: $1"
