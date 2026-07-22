@@ -35,6 +35,48 @@
 
 ---
 
+## Status da Versão Atual
+
+**Versão:** `1.3.0-beta` (22/07/2026)  
+**Canal:** Beta (branch1) — desenvolvimento em andamento  
+**Branch de próxima linha:** `branch2` (v2.0.0-beta — LLM + Firebase em desenvolvimento)  
+**Maturidade:** Infraestrutura sólida, testes parciais, integração LLM ainda em stubs
+
+### O que funciona ✓
+- Instalação e setup completos (Termux nativo)
+- Gerenciamento de pacotes (pkg, pip, npm)
+- Servidor HTTP na porta 8080
+- Gerador de CV (`pvn cv`)
+- Gerador de projetos web
+- Backup automático
+- Splash screen e indicadores ASCII
+- Suite de testes (`test_all.sh` — 78% de sucesso em sandbox)
+- CI de proteção de branches
+- Governança de branches (main/branch1/branch2/dev)
+
+### O que está em desenvolvimento 🔧
+- Integração com LLM real (atualmente stubs: `pvn criar/editar/corrigir/revisar/refatorar/guias`)
+- Firebase autenticação real (atualmente guias textuais)
+- Testes em Termux real (Issues #4)
+- Completude de dependências (Issues #3/#5)
+
+### Gate para release Stable (main) ⏳
+Critérios para promoção branch1 → main:
+- [ ] Testes ≥ 95% no sandbox (Issue #5: CI automático)
+- [ ] Execução em Termux real com relatório (Issue #4)
+- [ ] Nenhum FAIL aberto no milestone v1.3.0
+- [ ] Aprovação do usuário-chefe
+
+**Status atual:** PENDENTE — Issues #3, #4 e #5 aguardando.
+
+### Documentação oficial
+- **[docs/GOVERNANCA_v1.3.0.md](docs/GOVERNANCA_v1.3.0.md)** — Modelo de autoridade, branches, gate de promoção, checklist de sincronização
+- **[docs/BACKLOG.md](docs/BACKLOG.md)** — Backlog versionado com milestones v1.3.0, v1.4.0, v2.0.0
+- **[PROTECAO_BRANCH.md](PROTECAO_BRANCH.md)** — Regras de branches e como fazer mudanças
+
+---
+
+
 ## Instalação Rápida
 
 ```bash
