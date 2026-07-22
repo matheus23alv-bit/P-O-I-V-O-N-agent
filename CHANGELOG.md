@@ -8,7 +8,7 @@
 
 ---
 
-## [1.3.1-beta] - 2026-07-22
+## [1.3.1] - 2026-07-22 — **Release Stable (main)**
 
 ### Added
 - **Job `test-suite` no CI** — executa `test_all.sh` completo em cada push na branch1/branch2; CI falha se houver FAIL (Issue #5)
