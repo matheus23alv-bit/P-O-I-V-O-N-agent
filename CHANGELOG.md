@@ -8,6 +8,23 @@
 
 ---
 
+## [1.3.0-beta] - 2026-07-22
+
+### Added
+- **Regra 22 (Governança Git)** no `system_prompt.md` — main protegida, branch1 exclusiva, confirmação de branch ativa e marcador de versão obrigatório
+- **`.github/CODEOWNERS`** — toda alteração via PR para `main` exige revisão do owner
+- **`docs/GOVERNANCA_v1.3.0.md`** — modelo GitHub-fonte / workspaces-IA-isolados, estratégia de branches (main/branch1/branch2/dev), gate de promoção para main e checklist de sincronização
+- **`docs/BACKLOG.md`** — backlog oficial versionado com milestones v1.3.0 / v1.4.0 / v2.0.0
+- **Seção "Governança e Branches"** no README.md
+- Marcadores `<!-- Version: v1.3.0 -->` nos arquivos alterados
+
+### Changed
+- **Regra 11** reformulada — auditoria/revisão/refatoração proibidas apenas quando implícitas; permitidas mediante solicitação explícita do usuário-chefe
+- Versão global: `1.2.0-beta` → `1.3.0-beta` (control, pvn.conf, postinst)
+
+---
+
+
 ## [1.2.0] - 2026-07-21
 
 ### Added

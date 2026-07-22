@@ -1,3 +1,4 @@
+<!-- Version: v1.3.0 -->
 # POIVON — Agente Determinístico de Engenharia para Termux
 
 ## PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Termux Edition
@@ -30,6 +31,7 @@
 11. [Versionamento](#versionamento)
 12. [Changelog](#changelog)
 13. [Licença](#licença)
+14. [Governança e Branches](#governança-e-branches)
 
 ---
 
@@ -281,6 +283,27 @@ Resumo:
 | `v1.0.0` | 2026-07-21 | Lançamento inicial — agente base, setup, splash screen |
 | `v1.1.0` | 2026-07-21 | CHANGELOG + version.sh + fix tabela verificação |
 | `v1.2.0` | 2026-07-21 | LLM atualizado (21 regras) + CV básico + 7 bugs corrigidos |
+
+---
+
+## Governança e Branches
+
+<!-- Version: v1.3.0 -->
+
+**GitHub é a fonte geral e oficial do projeto.** Workspaces de IA (ChatGPT Projects, Claude Projects e similares) são ambientes isolados de engenharia: tudo que é produzido neles é **pré-oficial** até ser testado, aprovado pelo usuário-chefe e sincronizado na branch de trabalho.
+
+| Branch | Canal | Função | Push direto |
+|--------|-------|--------|-------------|
+| `main` | Stable | Produção, releases e tags | **BLOQUEADO** — somente PR aprovado pelo owner |
+| `branch1` | Beta | Canal ativo: consolidação e estabilização | Permitido (sufixo `-beta`) |
+| `branch2` | Next | Linha v2.x — integração LLM e Firebase | Permitido (sufixo `-beta`) |
+| `dev` | Dev | Experimentos livres | Permitido |
+
+**Fluxo:** tarefa → consulta à branch alvo → escopo mínimo → produção no workspace → testes → diff + evidências → aprovação do usuário-chefe → push na branch de trabalho → (quando estável) PR para `main`.
+
+**Gate de promoção `branch1 → main`:** ver `docs/GOVERNANCA_v1.3.0.md`. Nenhuma IA, modelo ou colaborador atualiza a `main` diretamente; a decisão final é sempre do mantenedor, passo a passo.
+
+Regras completas: Regra 22 do `usr/lib/p-o-i-v-o-n/data/system_prompt.md` e `PROTECAO_BRANCH.md`.
 
 ---
 
