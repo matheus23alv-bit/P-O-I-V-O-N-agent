@@ -8,6 +8,25 @@
 
 ---
 
+## [2.0.0-beta] - 2026-07-22 — branch2 (linha Next)
+
+### Added
+- **`llm_client.sh`** — cliente da Anthropic Messages API: `ask` (pergunta direta) e `criar` (gera projeto via manifesto de arquivos `### FILE:`/`### END`); usa `system_prompt.md` como contexto; chave via pvn.conf/env, nunca hardcoded; `--selftest` offline do parser (Issue #15)
+- **`pvn criar <ideia>`** — REAL: consulta o LLM e materializa o projeto em `~/storage/shared/POIVON/projects/<slug>/`
+- **`pvn ai <pergunta>`** — passagem direta ao LLM operador
+- **`pvn firebase {status|get|set|logout|guia}`** — agente v2 REAL: sign-in Identity Toolkit → Firestore REST; escrita restrita a `gnu.*` com merge via `updateMask` (Regra 12 por construção); cache de idToken 45min com umask 077 (Issue #16)
+- Chaves de configuração em `pvn.conf`: `LLM_API_KEY`, `LLM_MODEL`, `FIREBASE_WEB_API_KEY`, `FIREBASE_EMAIL`, `FIREBASE_SENHA` (placeholders vazios — proibido commitar preenchidas)
+
+### Security
+- Parser de manifesto bloqueia caminhos absolutos e `..` (validado no selftest)
+- Escrita Firestore impossibilitada fora de `admin/config → gnu.*` (caminho hardcoded)
+
+### Changed
+- Dispatcher do `pvn`: `criar`/`firebase` saem do stub; `editar/corrigir/revisar/refatorar/guias` permanecem na fila v2.x com aviso
+
+---
+
+
 ## [1.3.1-beta] - 2026-07-22
 
 ### Added

@@ -297,7 +297,23 @@ case "${1:-}" in
         echo "p-o-i-v-o-n versão ${AGENT_VERSION:-1.2.0-beta}"
         echo "PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta | branch1"
         ;;
-    "criar"|"editar"|"corrigir"|"revisar"|"refatorar"|"firebase"|"guias"|"guia")
+    "criar")
+        # v2.0: integração LLM real (Issue #15)
+        LLM_CLIENT="$PREFIX/lib/p-o-i-v-o-n/scripts/llm_client.sh"
+        shift
+        bash "$LLM_CLIENT" criar "$*"
+        ;;
+    "ai"|"perguntar")
+        LLM_CLIENT="$PREFIX/lib/p-o-i-v-o-n/scripts/llm_client.sh"
+        shift
+        bash "$LLM_CLIENT" ask "$*"
+        ;;
+    "firebase")
+        # v2.0: agente Firebase real (Issue #16)
+        shift
+        bash "$PREFIX/lib/p-o-i-v-o-n/agents/firebase_agent.sh" "$@"
+        ;;
+    "editar"|"corrigir"|"revisar"|"refatorar"|"guias"|"guia")
         echo ""
         echo "┌──────────────────────────────────────────────────┐"
         echo "│   •[ P-O-I-V-O-N ]  //\\\\  pensando.....•      │"
@@ -306,6 +322,7 @@ case "${1:-}" in
         echo "[POIVON] Comando $1 recebido."
         echo "[POIVON] Agente processando: pvn $1 $2"
         echo "[POIVON] Aguarde a resposta do agente..."
+        echo "[POIVON] LLM ativo em: pvn criar | pvn ai — demais comandos na fila v2.x (Issue #15)"
         echo ""
         echo "─────────────────────────────────────────"
         echo "  PVN S¥STEM | AGENTE POIVON | skill yb POIVON | Beta | branch1"
